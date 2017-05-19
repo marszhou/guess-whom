@@ -1,0 +1,18 @@
+{
+  "appenders": [
+    {
+      "type": "file",
+      "filename": "system.log",
+      "category": ["console", "socket"]
+    },
+    {
+      "type": "console"
+    },
+    {
+      "type": "file",
+      "category": "socket",
+      "filename": "socket.log"
+    }
+  ],
+  "replaceConsole": false
+}
