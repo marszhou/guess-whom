@@ -15,6 +15,9 @@ class Round {
   }
 
   end() {
+    this.candidates.forEach(can => {
+      can.isFinished = true
+    })
     this.isRunning = false
   }
 }

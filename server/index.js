@@ -44,10 +44,10 @@ app.post('/game/stage/:stageId', function(req, res) {
 })
 
 
-// game.setStage(2)
-// game.addPlayer(new Player)
-// game.addPlayer(new Player)
-// game.addPlayer(new Player)
+game.setStage(2)
+game.addPlayer(new Player)
+game.addPlayer(new Player)
+game.addPlayer(new Player)
 
 app.post('/game/round/start/:number', function(req, res) {
   let number = +req.params.number
