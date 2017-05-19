@@ -16,7 +16,9 @@ class Player {
   }
 
   update(info) {
-    {name: this.name, status: this.status} = info
+    const {name, status} = info
+    this.name = name
+    this.status = status
   }
 
   setAnswers(answers) {

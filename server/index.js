@@ -14,9 +14,10 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.use(bodyParser.json())
 
 app.all('/', function(req, res, next) {
-  logger.info(req.method)
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "X-Requested-With")
+  res.header("Access-Control-Allow-Credentials", "true")
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+  res.header("Access-Control-Allow-Origin", req.headers.origin)
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
   next();
 })
 
@@ -25,6 +26,13 @@ const Game = require('./stores/Game')
 const Player = require('./stores/Player')
 
 let game = new Game()
+
+app.post('/', function(req, res) {
+  // io.to('test')
+  // io.emit('test', '1', '2')
+
+  res.json({result: true})
+})
 //
 app.post('/game/init', function(req, res) {
   logger.info('Game Init')
@@ -100,11 +108,13 @@ let io = require('socket.io')(httpServer)
 
 io.on('connection', (socket) => {
   socket.on('sub', function(data) {
-    console.log(data)
+    let channelId = data.channelId
+    socket.join(channelId)
   })
 
   socket.on('unsub', function(data) {
-    console.log(data)
+    let channelId = data.channelId
+    socket.leave(channelId)
   })
 
   socket.on('disconnect', function() {
