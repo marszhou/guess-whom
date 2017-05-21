@@ -1,5 +1,7 @@
 import './App.css'
 import 'antd/dist/antd.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
 import React from 'react'
 import {
   BrowserRouter as Router,
@@ -7,13 +9,18 @@ import {
   Link
 } from 'react-router-dom'
 import Home from './pages/Home'
+import QR from './pages/QR'
+import UI from './pages/UI'
+import Welcome from './pages/Welcome'
 
 const App = () => {
   return (
     <Router>
       <div>
-        <h1>Guess Whom</h1>
-        <Route exact path='/a/b/c' component={Home}/>
+        <Route exact path='/' component={Home}/>
+        <Route exact path='/qr' component={QR}/>
+        <Route exact path='/welcome' component={Welcome}/>
+        <Route exact path='/ui' component={UI}/>
       </div>
     </Router>
   )
