@@ -4,13 +4,13 @@ const {uniqId} = require('../../src/utils/Func')
 const _ = require('lodash')
 
 class Player {
-  constructor(props) {
+  constructor(info) {
     this.isUsed = false       // 是否被使用
     this.isFinished = false   // 是否完成使用
-    this.id = uniqId()
-    this.name = ''
-    this.status = ''
-    this.answers = []
+    this.id = info.id
+    this.name = info.name
+    this.status = info.status
+    this.answers = info.answers
     this.choices = []         // 当前选手的选择
     this.chosens = []         // 当前选手被选的结果
   }

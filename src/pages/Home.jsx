@@ -6,10 +6,6 @@ const request = require('../utils/Request')
 const QR = require('jr-qrcode')
 
 class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentWillMount() {
     // let socket = io('http://localhost:8080')
     // socket.on('connect', () => {
@@ -30,7 +26,8 @@ class Home extends React.Component {
   }
 
   handleClick = (e) => {
-    request.post('/', {body: {name: 'matt'}})
+    // request.get('/', {body: {name: 'matt'}})
+    request.post('/player/1', {body: {name: 'matt'}})
     .then((...rest) => {
       console.log(rest)
     })
@@ -43,7 +40,6 @@ class Home extends React.Component {
         <button onClick={this.handleClick} type='button'>
           click
         </button>
-        <img src={this.state.image}/>
       </div>
     )
 

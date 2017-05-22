@@ -28,3 +28,18 @@
 body {
 /*  background: red*/
 }
+
+.emoji {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  text-align: center;
+  font-size: 0.8em;
+  border: 1px solid gray;
+  background: gray;
+  border-radius: 1em;
+  opacity: 0.8;
+}
+
+.panel-body { padding: 15px; }

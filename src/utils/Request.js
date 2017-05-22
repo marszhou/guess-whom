@@ -160,7 +160,9 @@ class Request {
           req.attach(file.name, file.data);
         });
         for (var key in options.body) {
-          req.field(key, options.body[key]);
+          if (options.body.hasOwnProperty(key)) {
+            req.field(key, options.body[key]);
+          }
         }
     } else if (options.body) {
       req.send(options.body);
@@ -172,7 +174,7 @@ class Request {
       return req;
     }
 
-    var self = this;
+    // var self = this;
 
     var promise = new Promise(function(resolve, reject) {
       req.withCredentials();
@@ -203,4 +205,5 @@ class Request {
   }
 }
 
-module.exports = new Request('http://localhost:8080')
+// module.exports = new Request('http://localhost:8080')
+module.exports = new Request('http://' + location.hostname + ':8080')

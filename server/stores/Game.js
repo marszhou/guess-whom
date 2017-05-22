@@ -7,8 +7,9 @@ const Round = require('./Round')
 const STAGE = {
   init: 0,
   playerLogin: 1,
-  playing: 2,
-  end: 3
+  guess: 2,
+  result: 3,
+  end: 4
 }
 
 class Game {
@@ -66,28 +67,28 @@ class Game {
     return _.filter(this.players, player => !player.isUsed)
   }
 
-  _drawCandidate(n) {
+  _drawCandidate() {
     let availables = this._availableCandidates()
-    return _.sampleSize(availables, n)
+    return _.sample(availables)
   }
 
-  startNewRound(candidateCount) {
-    let round = new Round()
-    let candidates = this._drawCandidate(candidateCount)
-    if (candidates.length > 0) {
-      round.start(candidates)
-      this.rounds.push(round)
-      this.currentRound = round
-      return round
-    }
-  }
+  // startNewRound(candidateCount) {
+  //   let round = new Round()
+  //   let candidates = this._drawCandidate(candidateCount)
+  //   if (candidates.length > 0) {
+  //     round.start(candidates)
+  //     this.rounds.push(round)
+  //     this.currentRound = round
+  //     return round
+  //   }
+  // }
 
-  endRound() {
-    if (this.currentRound) {
-      this.currentRound.end()
-      this.currentRound = null
-    }
-  }
+  // endRound() {
+  //   if (this.currentRound) {
+  //     this.currentRound.end()
+  //     this.currentRound = null
+  //   }
+  // }
 
   setPlayerAnswer(playerId, answers) {
     let {player} = this.getPlayerById(playerId)
