@@ -128,9 +128,11 @@ app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', fun
 let socketServer = require('socket.io')(httpServer)
 
 socketServer.on('connection', (socket) => {
+  logger.info('recieve connection')
   let channels = []
   socket.on('sub', function(data) {
     let channelId = data.channelId
+    logger.info('playerId=' + data.playerId + ' subscribe ' + channelId)
     channels.push(channelId)
     socket.join(channelId)
   })
@@ -142,6 +144,6 @@ socketServer.on('connection', (socket) => {
   })
 
   socket.on('disconnect', function() {
-
+    logger.info('socket disconnect')
   })
 })

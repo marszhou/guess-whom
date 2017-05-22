@@ -12,7 +12,7 @@ import {
 import Home from './pages/Home'
 import QR from './pages/QR'
 import UI from './pages/UI'
-import Game from './pages/Game'
+import Player from './pages/Player'
 
 const App = () => {
   return (
@@ -21,7 +21,7 @@ const App = () => {
 
         <Route exact path='/' component={Home}/>
         <Route exact path='/qr' component={QR}/>
-        <Route exact path='/game' component={Game}/>
+        <Route exact path='/player' component={Player}/>
         <Route exact path='/ui' component={UI}/>
       </div>
     </Router>

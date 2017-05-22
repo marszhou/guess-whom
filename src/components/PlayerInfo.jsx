@@ -121,7 +121,7 @@ class PlayerInfo extends React.Component {
               disabled={player.isConfirmed}
             >
               {
-                (player.isConfirmed) ? (<img src="static/assets/svg/loading-bubbles.svg" alt="Loading icon" style={{width: 16}}/>) : '就这样吧'
+                (player.isConfirmed) ? (<span>一切就绪准备发射<img src="static/assets/svg/loading-bubbles.svg" alt="Loading icon" style={{width: 16}}/></span>) : 'I\'m Ready!'
               }
             </button>
             {" "}
@@ -130,7 +130,7 @@ class PlayerInfo extends React.Component {
               className="btn btn-default"
               onClick={this.handleReset}
             >
-              返回修改
+              再改改...
             </button>
           </div>
         </div>

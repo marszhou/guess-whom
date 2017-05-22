@@ -20,7 +20,7 @@ export default inject('game')(({game}) => {
       <nav className="navbar navbar-default navbar-fixed-top navbar-inverse">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#"><div className="emoji">🎸</div> Guess Whom</a>
+            <a className="navbar-brand" href="#"><div className="emoji">⁉️</div> Guess Whom</a>
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
