@@ -107,7 +107,7 @@ app.post('/player/:playerId', function(req, res) {
     logger.info('Add player')
     let player = new Player(info)   // add
     game.addPlayer(player)
-    logger.info('Current players count = ' + this.getPlayersCount())
+    logger.info('Current players count = ' + game.getPlayersCount())
   }
   res.json({
     result: true

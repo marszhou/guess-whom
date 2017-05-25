@@ -1,30 +1,18 @@
 const {extendObservable, computed, action } = require('mobx')
 // import {extendObservable} from 'mobx'
+import socket from 'src/utils/get-client-socket'
 import PlayerStore from './Player'
-
-const CHANNELS = [
-  'private',
-  'public'
-]
-
-const SOCKET_EVENTS = {
-  public: [
-    'game_info',
-    'user_list'
-  ],
-  private: [
-    'user_info'
-  ]
-
-}
+import {CHANNELS, SOCKET_EVENTS} from 'src/consts'
 
 class Game {
-  constructor(socket) {
+  constructor(role='player') {
     extendObservable(this, {
       stage: 0,
       users: []
     })
-    this.player = new PlayerStore()
+    if (role === 'player') {
+      this.player = new PlayerStore(socket)
+    }
     this.init()
     this.initSocket(socket)
   }
@@ -39,11 +27,11 @@ class Game {
     this.socket.on('connect', () => {
       console.log('client connect to socket server')
 
-      CHANNELS.forEach(channel => (
+      CHANNELS.forEach(channel => ( // 订阅频道
         this.socket.emit('sub', {channelId: channel, playerId: this.player.id})
       ))
 
-      SOCKET_EVENTS.public.forEach(event => {
+      SOCKET_EVENTS.public.forEach(event => { // 监听事件
         this.socket.on(event, this.handleSocketEvent.bind(this, event))
       })
     })
