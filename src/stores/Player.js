@@ -5,7 +5,8 @@ import _ from 'lodash'
 import {Debounce} from 'lodash-decorators'
 
 class Player {
-  constructor() {
+  constructor(socket) {
+    this.socket = socket
     this.queryInfo()
   }
 
@@ -45,6 +46,30 @@ class Player {
   }
 
   @action
+  loadInfo(info) {
+    for (let key in info) {
+      if (info.hasOwnProperty(key)) {
+        this[key] = info[key]
+      }
+    }
+  }
+
+  getPlayerInfo() {
+    return _.pick(this, 'id', 'name', 'status', 'answers')
+  }
+
+  @action
+  set(name, value) {
+    this._isModified = true
+    this[name] = value
+    this.pushInfo()
+  }
+
+  // ---- request methods ---
+  /*
+    get /player/:playerId
+  */
+  @action
   queryInfo() {
     let id = window.localStorage.getItem('playerId')
     if (id) {
@@ -61,19 +86,9 @@ class Player {
     }
   }
 
-  @action
-  loadInfo(info) {
-    for (let key in info) {
-      if (info.hasOwnProperty(key)) {
-        this[key] = info[key]
-      }
-    }
-  }
-
-  getPlayerInfo() {
-    return _.pick(this, 'id', 'name', 'status', 'answers')
-  }
-
+  /*
+    post /player/:playerId
+  */
   @Debounce(500)
   pushInfo() {
     let info = {info: this.getPlayerInfo()}
@@ -81,14 +96,6 @@ class Player {
     .then(response => {
     })
   }
-
-  @action
-  set(name, value) {
-    this._isModified = true
-    this[name] = value
-    this.pushInfo()
-  }
-
 }
 
 export default Player

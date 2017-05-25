@@ -6,6 +6,7 @@ import {CHANNELS, SOCKET_EVENTS} from 'src/consts'
 
 class Game {
   constructor(role='player') {
+    this.role = role
     extendObservable(this, {
       stage: 0,
       users: []
@@ -26,19 +27,31 @@ class Game {
     this.socket = socket
     this.socket.on('connect', () => {
       console.log('client connect to socket server')
+      if (this.role === 'admin') {
+        this.socket.emit('sub', {
+          channelId: 'admin',
+          playerId: '__admin__'
+        })
+      } else {
+        this.socket.emit('sub', {
+          channelId: 'admin',
+          playerId: this.player.id
+        })
 
-      CHANNELS.forEach(channel => ( // 订阅频道
-        this.socket.emit('sub', {channelId: channel, playerId: this.player.id})
-      ))
+        this.socket.emit('sub', {
+          channelId: 'private_' + this.player.id,
+          playerId: this.player.id
+        })
+      }
+    })
 
-      SOCKET_EVENTS.public.forEach(event => { // 监听事件
-        this.socket.on(event, this.handleSocketEvent.bind(this, event))
-      })
+    SOCKET_EVENTS.public.forEach(event => { // 监听事件
+      this.socket.on(event, this.handleSocketEvent.bind(this, event))
     })
   }
 
   handleSocketEvent = (event, ...rest) => {
-
+    console.log(event, rest)
   }
 
   @action

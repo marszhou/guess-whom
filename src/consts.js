@@ -6,9 +6,9 @@ export const CHANNELS = [
 export const SOCKET_EVENTS = {
   public: [
     'game_info',
-    'user_list'
+    'player_list'
   ],
   private: [
-    'user_info'
+    'player_info'
   ]
 }

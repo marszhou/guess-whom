@@ -109,10 +109,20 @@ app.post('/player/:playerId', function(req, res) {
     game.addPlayer(player)
     logger.info('Current players count = ' + game.getPlayersCount())
   }
+  bcUserList()
   res.json({
     result: true
   })
 })
+
+function broadcast(event, ...channels) {
+  channels.forEach(channel => socketServer.to(channel))
+  socketServer.emit.apply(socketServer, event)
+}
+
+function bcUserList() {
+  broadcast(['player_list', game.players], 'public', 'admin')
+}
 
 // set player answer
 app.post('/player/answer/:playerId', function(req, res) {
@@ -144,6 +154,8 @@ socketServer.on('connection', (socket) => {
   })
 
   socket.on('disconnect', function() {
-    logger.info('socket disconnect')
+    logger.info('socket disconnect', socket.id)
+    // @todo 离开的时候从玩家列表中去掉
   })
+
 })

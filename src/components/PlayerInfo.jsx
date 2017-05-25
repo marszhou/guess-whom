@@ -7,7 +7,10 @@ import cx from 'classnames'
 class PlayerInfo extends React.Component {
   handleChange = (e) => {
     let {player} = this.props.game
-    player.set(e.target.getAttribute('name'), e.target.value)
+    player.set(
+      e.target.getAttribute('name'),
+      e.target.value
+    )
   }
 
   handleSubmit = (e) => {
@@ -21,6 +24,7 @@ class PlayerInfo extends React.Component {
   handleConfirm = (e) => {
     e.preventDefault()
     let {player} = this.props.game
+    console.log(player.confirm)
     player.confirm()
   }
 
