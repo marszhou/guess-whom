@@ -142,7 +142,7 @@ function broadcast(event, ...channels) {
 }
 
 function broadcastUserList() {
-  broadcast(['player_list'], 'public', 'admin')
+  broadcast(['player_list'], 'game', 'admin')
 }
 
 let socketServer = require('socket.io')(httpServer)

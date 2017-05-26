@@ -8,25 +8,10 @@ class AdminPage extends React.Component {
     this.game = new GameStore('admin')
   }
 
-  renderPlayers() {
-    return (
-      <ul>
-        {
-          this.game.players.map(player => {
-            return (
-              <li key={player.id}>{player.name}</li>
-            )
-          })
-        }
-      </ul>
-    )
-  }
-
   render() {
     return (
       <div>
-
-        {this.renderPlayers()}
+        <button type='button'></button>
       </div>
     )
   }

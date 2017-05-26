@@ -20,15 +20,27 @@ const App = () => {
   return (
     <Router>
       <div className='container-fluid'>
+        <div>
+          <nav className="navbar navbar-default navbar-fixed-top navbar-inverse">
+            <div className="container-fluid">
+              <div className="navbar-header">
+                <a className="navbar-brand" href="#"><div className="emoji">⁉️</div> Guess Whom</a>
+              </div>
+              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-        <Route exact path='/' component={Home}/>
-        <Route exact path='/qr' component={QR}/>
-        <Route exact path='/player' component={Player}/>
-        <Route exact path='/game' component={Game}/>
-        {
-          // <Route exact path='/ui' component={UI}/>
-        }
-        <Route exact path='/admin' component={Admin}/>
+              </div>
+            </div>
+          </nav>
+          <div className="panel panel-default">
+            <div className='panel-body'>
+              <Route exact path='/' component={Home}/>
+              <Route exact path='/qr' component={QR}/>
+              <Route exact path='/player' component={Player}/>
+              <Route exact path='/game' component={Game}/>
+              <Route exact path='/admin' component={Admin}/>
+            </div>
+          </div>
+        </div>
       </div>
     </Router>
   )

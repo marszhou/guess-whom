@@ -8,6 +8,7 @@ class Player {
     this.isUsed = false       // 是否被使用
     this.isFinished = false   // 是否完成使用
     this.isConfirm = false
+    this.isSurvey = false
     this.id = info.id
     this.name = info.name
     this.status = info.status
@@ -31,6 +32,10 @@ class Player {
 
   setIsConfirm(confirm) {
     this.isConfirm = confirm
+  }
+
+  setIsSurvey(v) {
+    this.isSurvey = v
   }
 
   addChoice(target, choice) {

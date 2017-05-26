@@ -17,25 +17,12 @@ export default () => {
     case 2:
     case 3:
     default:
+      content = null
   }
   return (
     <Provider game={game}>
       <div>
-        <nav className="navbar navbar-default navbar-fixed-top navbar-inverse">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <a className="navbar-brand" href="#"><div className="emoji">⁉️</div> Guess Whom</a>
-            </div>
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-            </div>
-          </div>
-        </nav>
-        <div className="panel panel-default">
-          <div className='panel-body'>
-          {content}
-          </div>
-        </div>
+        {content}
       </div>
     </Provider>
   )

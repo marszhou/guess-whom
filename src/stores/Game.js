@@ -86,6 +86,7 @@ class Game {
   fetchPlayers() {
     request.get('/players')
     .then(action(({players}) => {
+      console.log(players)
       this.players = players
     }))
   }
