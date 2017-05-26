@@ -8,6 +8,10 @@ let bodyParser = require('body-parser')
 let logger = require('./utils/logger').getLogger('console')
 logger.setLevel('DEBUG')
 
+const Game = require('./stores/Game')
+const Player = require('./stores/Player')
+let game = new Game()
+
 let httpServer = getHttpServer(app)
 
 app.use(express.static(path.join(__dirname, '/public')))
@@ -28,17 +32,12 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
   res.header("Access-Control-Allow-Origin", req.headers.origin)
   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization, Access-Control-Request-Method")
-  next();
+  next()
 })
 
 app.all('/', function(req, res) {
   res.json({ok: true})
 })
-
-const Game = require('./stores/Game')
-const Player = require('./stores/Player')
-
-let game = new Game()
 
 //
 app.post('/game/init', function(req, res) {
@@ -57,12 +56,6 @@ app.post('/game/stage/:stageId', function(req, res) {
     res.json({result: false, error: {msg: 'illegal stage value'}})
   }
 })
-
-
-// game.setStage(2)
-// game.addPlayer(new Player)
-// game.addPlayer(new Player)
-// game.addPlayer(new Player)
 
 app.post('/game/round/start/:number', function(req, res) {
   let number = +req.params.number
@@ -99,7 +92,7 @@ app.get('/player/:playerId', function(req, res) {
 
 // add or update player info
 app.post('/player/:playerId', function(req, res) {
-  let info = req.body.info
+  let info = req.body
   if (game.playerExists(info.id)) { // update
     logger.info('Update player')
     game.updatePlayer(info)
@@ -109,20 +102,28 @@ app.post('/player/:playerId', function(req, res) {
     game.addPlayer(player)
     logger.info('Current players count = ' + game.getPlayersCount())
   }
-  bcUserList()
+  broadcastUserList()
   res.json({
     result: true
   })
 })
 
-function broadcast(event, ...channels) {
-  channels.forEach(channel => socketServer.to(channel))
-  socketServer.emit.apply(socketServer, event)
-}
+app.get('/players', function(req, res) {
+  res.json({
+    result: true,
+    players: game.players
+  })
+})
 
-function bcUserList() {
-  broadcast(['player_list', game.players], 'public', 'admin')
-}
+app.post('/player/:playerId/confirm', function(req, res) {
+  let {confirm} = req.body
+  let playerId = req.params.playerId
+  game.setPlayerIsConfirm(playerId, confirm)
+  broadcastUserList()
+  res.json({
+    result: true
+  })
+})
 
 // set player answer
 app.post('/player/answer/:playerId', function(req, res) {
@@ -134,6 +135,15 @@ app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', fun
   const {playerId, targetId, choiceId} = this.req.params
   game.guess(playerId, targetId, choiceId)
 })
+
+function broadcast(event, ...channels) {
+  channels.forEach(channel => socketServer.to(channel))
+  socketServer.emit.apply(socketServer, event)
+}
+
+function broadcastUserList() {
+  broadcast(['player_list'], 'public', 'admin')
+}
 
 let socketServer = require('socket.io')(httpServer)
 

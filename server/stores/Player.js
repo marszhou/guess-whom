@@ -7,6 +7,7 @@ class Player {
   constructor(info) {
     this.isUsed = false       // 是否被使用
     this.isFinished = false   // 是否完成使用
+    this.isConfirm = false
     this.id = info.id
     this.name = info.name
     this.status = info.status
@@ -26,6 +27,10 @@ class Player {
       this.answers = answers
       return true
     }
+  }
+
+  setIsConfirm(confirm) {
+    this.isConfirm = confirm
   }
 
   addChoice(target, choice) {

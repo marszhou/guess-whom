@@ -2,14 +2,16 @@ const {extendObservable, computed, action } = require('mobx')
 // import {extendObservable} from 'mobx'
 import socket from 'src/utils/get-client-socket'
 import PlayerStore from './Player'
-import {CHANNELS, SOCKET_EVENTS} from 'src/consts'
+import {SOCKET_EVENTS} from 'src/consts'
+import request from 'utils/Request'
+import {Debounce} from 'lodash-decorators'
 
 class Game {
   constructor(role='player') {
     this.role = role
     extendObservable(this, {
       stage: 0,
-      users: []
+      players: []
     })
     if (role === 'player') {
       this.player = new PlayerStore(socket)
@@ -20,7 +22,9 @@ class Game {
 
   init() {
     this.stage = 0
-    this.users = []
+    this.players = []
+
+    this.fetchPlayers()
   }
 
   initSocket(socket) {
@@ -52,6 +56,12 @@ class Game {
 
   handleSocketEvent = (event, ...rest) => {
     console.log(event, rest)
+    switch(event) {
+      case 'player_list':
+        this.fetchPlayers()
+      break
+      default:
+    }
   }
 
   @action
@@ -69,6 +79,15 @@ class Game {
 
   @computed get userCount() {
     return this.users.length
+  }
+
+  // ----- request methods -----
+  @Debounce(500)
+  fetchPlayers() {
+    request.get('/players')
+    .then(action(({players}) => {
+      this.players = players
+    }))
   }
 }
 module.exports = Game

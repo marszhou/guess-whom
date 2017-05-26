@@ -24,7 +24,6 @@ class PlayerInfo extends React.Component {
   handleConfirm = (e) => {
     e.preventDefault()
     let {player} = this.props.game
-    console.log(player.confirm)
     player.confirm()
   }
 

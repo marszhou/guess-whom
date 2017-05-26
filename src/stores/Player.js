@@ -30,12 +30,14 @@ class Player {
   @action
   confirm() {
     this.isConfirmed = true
+    this.sendIsConfirm(true)
   }
 
   @action
   reset() {
     this.isConfirmed = false
     this.isEditing = true
+    this.sendIsConfirm(false)
   }
 
   @computed get hasError() {
@@ -91,9 +93,19 @@ class Player {
   */
   @Debounce(500)
   pushInfo() {
-    let info = {info: this.getPlayerInfo()}
+    let info = this.getPlayerInfo()
     request.post('/player/' + this.id, {body: info})
     .then(response => {
+    })
+  }
+  /**
+    post /player/:playerId/confirm
+   */
+  sendIsConfirm(confirm = true) {
+    let body = {confirm}
+    request.post('/player/' + this.id + '/confirm', {body})
+    .then(response => {
+
     })
   }
 }

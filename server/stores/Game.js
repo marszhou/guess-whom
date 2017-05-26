@@ -40,6 +40,13 @@ class Game {
     }
   }
 
+  setPlayerIsConfirm(playerId, confirm) {
+    let {player} = this.getPlayerById(playerId)
+    if (player) {
+      player.setIsConfirm(confirm)
+    }
+  }
+
   getPlayerById(playerId) {
     let index = _.findIndex(this.players, {id: playerId})
     if (index > -1) {
