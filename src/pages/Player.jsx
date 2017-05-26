@@ -4,7 +4,10 @@ import {Provider} from 'mobx-react'
 import PlayerInfo from 'components/PlayerInfo'
 import GameStore from 'src/stores/Game'
 
+import Page from 'src/stores/Page'
+
 export default () => {
+  Page.pushTitle('用户')
   const game = new GameStore('player')
 
   const {stage} = game

@@ -2,9 +2,19 @@ import React from 'react'
 import {inject, observer} from 'mobx-react'
 import cx from 'classnames'
 
+import Page from 'src/stores/Page'
+
 @inject('game')
 @observer
 class PlayerInfo extends React.Component {
+  componentWillMount() {
+    Page.pushTitle('设置')
+  }
+
+  componentWillUnmount() {
+    Page.popTitle()
+  }
+
   handleChange = (e) => {
     let {player} = this.props.game
     player.set(
