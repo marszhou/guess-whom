@@ -36,12 +36,12 @@ class Game {
           channelId: 'admin',
           playerId: '__admin__'
         })
-      } else {
+      } else if (this.role === 'game') {
         this.socket.emit('sub', {
-          channelId: 'admin',
-          playerId: this.player.id
+          channelId: 'game',
+          playerId: '__public__'
         })
-
+      } else {
         this.socket.emit('sub', {
           channelId: 'private_' + this.player.id,
           playerId: this.player.id
