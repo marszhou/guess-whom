@@ -43,6 +43,13 @@ app.post('/game/init', function(req, res) {
   res.json({result: true})
 })
 
+app.get('/game/stage', function(req, res) {
+  res.json({
+    result: true,
+    stage: game.stage
+  })
+})
+
 app.post('/game/stage/:stageId', function(req, res) {
   logger.info('Game set stage, stageId =', req.params.stageId)
   let stageId = +req.params.stageId
@@ -91,7 +98,7 @@ app.post('/player/:playerId/confirm', function(req, res) {
   let {confirm} = req.body
   let playerId = req.params.playerId
   game.setPlayerIsConfirm(playerId, confirm)
-  broadcastUserList()
+  broadcastGame()
   res.json({
     result: true
   })
@@ -117,6 +124,14 @@ function broadcast(event, ...channels) {
 
 function broadcastUserList() {
   broadcast(['player_list'], 'game', 'admin')
+}
+
+function broadcastGame() {
+  broadcast(['game'], 'admin', 'game', 'public')
+}
+
+function broadcastGameStage() {
+  broadcast(['game_stage'], 'admin', 'game')
 }
 
 let socketServer = require('socket.io')(httpServer)

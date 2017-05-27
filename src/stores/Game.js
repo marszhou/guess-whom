@@ -24,7 +24,8 @@ class Game {
     this.stage = 0
     this.players = []
 
-    this.fetchPlayers()
+    // this.fetchPlayers()
+    this.fetchGame()
   }
 
   initSocket(socket) {
@@ -43,6 +44,10 @@ class Game {
         })
       } else {
         this.socket.emit('sub', {
+          channelId: 'public',
+          playerId: this.player.id
+        })
+        this.socket.emit('sub', {
           channelId: 'private_' + this.player.id,
           playerId: this.player.id
         })
@@ -59,6 +64,12 @@ class Game {
     switch(event) {
       case 'player_list':
         this.fetchPlayers()
+      break
+      case 'game_stage':
+        this.fetchGameStage()
+      break
+      case 'game':
+        this.fetchGame()
       break
       default:
     }
@@ -88,6 +99,23 @@ class Game {
     .then(action(({players}) => {
       console.log(players)
       this.players = players
+    }))
+  }
+  @Debounce(500)
+  fetchGame() {
+    request.get('/game')
+    .then(action(({game}) => {
+      console.log(game)
+      this.stage = game.stage
+      this.players = game.players
+    }))
+  }
+  @Debounce(500)
+  fetchGameStage() {
+    request.get('/game/stage')
+    .then(action(({stage}) => {
+      console.log(stage)
+      this.stage = stage
     }))
   }
 }

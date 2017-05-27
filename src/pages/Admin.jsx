@@ -13,7 +13,13 @@ class AdminPage extends React.Component {
   render() {
     return (
       <div>
-        <button type='button'></button>
+        <div>当前状态: {this.game.stage}</div>
+        <button
+          type='button'
+          className="btn btn-default btn-block"
+        >
+        全部成员Confirm,进入stage=2
+        </button>
       </div>
     )
   }

@@ -20,8 +20,6 @@ class Game {
   init() {
     this.players = []
     this.stage = STAGE.init
-    this.rounds = []
-    this.currentRound = null
   }
 
   addPlayer(player) {
