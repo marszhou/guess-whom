@@ -1,11 +1,13 @@
 import React from 'react'
 import GameStore from 'src/stores/Game'
 import {observer} from 'mobx-react'
+import Page from 'src/stores/Page'
 
 @observer
 class GamePage extends React.Component {
   componentWillMount() {
     this.game = new GameStore('game')
+    Page.pushTitle('我猜')
   }
 
   renderBool(bool) {
@@ -26,7 +28,7 @@ class GamePage extends React.Component {
   renderPlayers() {
     return (
       <table
-        className="table table-striped table-bordered"
+        className="table table-striped"
       >
         <thead>
           <tr>

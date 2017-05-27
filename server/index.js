@@ -16,16 +16,6 @@ let httpServer = getHttpServer(app)
 
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(bodyParser.json())
-
-// app.all('/', function(req, res, next) {
-//   console.log(req.headers.origin)
-//   res.header("Access-Control-Allow-Credentials", "true")
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-//   res.header("Access-Control-Allow-Origin", req.headers.origin)
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type, Authorization")
-//   next();
-// })
-
 app.use(function(req, res, next) {
   logger.info(req.method + ': ' + req.originalUrl)
   res.header("Access-Control-Allow-Credentials", "true")
@@ -37,6 +27,13 @@ app.use(function(req, res, next) {
 
 app.all('/', function(req, res) {
   res.json({ok: true})
+})
+
+app.get('/game', function(req, res) {
+  res.json({
+    result: true,
+    game: game
+  })
 })
 
 //
@@ -55,31 +52,6 @@ app.post('/game/stage/:stageId', function(req, res) {
   } else {
     res.json({result: false, error: {msg: 'illegal stage value'}})
   }
-})
-
-app.post('/game/round/start/:number', function(req, res) {
-  let number = +req.params.number
-  logger.info('Try to start new round, with ',
-              number,
-              'candidates')
-  if (number > 0 && game.stage === 2 && !game.currentRound) {
-    let round = game.startNewRound()
-    if (round) {
-      logger.info('Start new round')
-      res.json({result: true, round})
-      return
-    }
-  }
-  res.json({result: false})
-})
-
-app.post('/game/round/result/:index', function(req, res) {
-  let candidate = game.currentRound.getCandidate(+index)
-  res.json(candidate)
-})
-
-app.post('/game/round/end', function(req, res) {
-  game.endRound()
 })
 
 app.get('/player/:playerId', function(req, res) {
@@ -135,6 +107,8 @@ app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', fun
   const {playerId, targetId, choiceId} = this.req.params
   game.guess(playerId, targetId, choiceId)
 })
+
+// --
 
 function broadcast(event, ...channels) {
   channels.forEach(channel => socketServer.to(channel))
