@@ -1,4 +1,5 @@
 import React from 'react'
+import {observable, action} from 'mobx'
 import {inject, observer} from 'mobx-react'
 import cx from 'classnames'
 import _ from 'lodash'
@@ -21,8 +22,9 @@ class PlayerAnswer extends React.Component{
     Page.popTitle()
   }
 
-  handleChange() {
-
+  handleChange = (index, field, e) => {
+    let {player} = this.props.game
+    player.updateAnswer(index, field, e.target.value)
   }
 
   handleAddItem = () => {
@@ -35,12 +37,17 @@ class PlayerAnswer extends React.Component{
     player.removeAnswer(index)
   }
 
-  handleSubmit() {
+  @observable error = null
 
+  @action
+  handleSubmit = () => {
+    let {player} = this.props.game
+    this.error = player.checkAnswers()
   }
 
   renderItem = (item, index) => {
     let {player} = this.props.game
+    let validate = player.answerValidates[index]
 
     return (
       <div key={index}>
@@ -51,6 +58,7 @@ class PlayerAnswer extends React.Component{
 
         <div className={cx({
           "form-group": true,
+          "has-error": !validate.period
         })}>
           <label className="col-sm-2 control-label">
             时期
@@ -60,9 +68,9 @@ class PlayerAnswer extends React.Component{
               type="text"
               className="form-control"
               placeholder="例如：从前, 小时候，初中，大学等描述"
-              name='name'
+              name='period'
               value={item.period}
-              onChange={_.partial(this.handleChange, index)}
+              onChange={_.partial(this.handleChange, index, 'period')}
             />
 
           </div>
@@ -71,6 +79,7 @@ class PlayerAnswer extends React.Component{
 
         <div className={cx({
           "form-group": true,
+          "has-error": !validate.target
         })}>
           <label className="col-sm-2 control-label">
             榜样
@@ -80,9 +89,9 @@ class PlayerAnswer extends React.Component{
               type="text"
               className="form-control"
               placeholder="对象可以是任何人，按自己的实际情况填写"
-              name='name'
+              name='target'
               value={item.target}
-              onChange={_.partial(this.handleChange, index)}
+              onChange={_.partial(this.handleChange, index, 'target')}
             />
 
           </div>
@@ -94,6 +103,14 @@ class PlayerAnswer extends React.Component{
         }
       </div>
     )
+  }
+
+  renderFormCheckError() {
+    return this.error ? (
+      <div className="alert alert-danger" role="alert">
+        {this.error.message}
+      </div>
+    ) : null
   }
 
   render() {
@@ -121,6 +138,8 @@ class PlayerAnswer extends React.Component{
             </div>
           </div>
 
+          { this.renderFormCheckError() }
+
           <div className="form-group">
             <div className="col-sm-offset-2 col-sm-10">
               <button
@@ -132,6 +151,8 @@ class PlayerAnswer extends React.Component{
               </button>
             </div>
           </div>
+
+
         </form>
       </div>
     )

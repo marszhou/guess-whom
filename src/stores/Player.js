@@ -42,19 +42,56 @@ class Player {
   }
 
   @action
+  updateAnswer(index, field, value) {
+    let answer = this.answers[index]
+    answer[field] = value
+  }
+
+  @computed get answerValidates() {
+    return this.answers.map(answer => {
+      return {
+        period: answer.period.trim().length > 0,
+        target: answer.target.trim().length > 0
+      }
+    })
+  }
+
+  checkAnswers() {
+    let error = {}
+    if (_.some(this.answerValidates, v => (
+        !(v.period && v.target)
+      ))) {
+      error.message = '有部分选项未填写完整'
+      return error
+    }
+
+    let periods = _.map(this.answers, 'period')
+    if (_.uniq(periods).length !== periods.length) {
+      error.message = '时期填写重复'
+      return error
+    }
+
+    if (this.answers.length < 2) {
+      error.message = '至少填写两项'
+      return error
+    }
+    return null
+  }
+
+  @action
   confirm() {
     this.isConfirmed = true
     this.sendIsConfirmed(true)
   }
 
   @action
-  reset() {
+  resetConfirm() {
     this.isConfirmed = false
     this.isEditing = true
     this.sendIsConfirmed(false)
   }
 
-  @computed get hasError() {
+  @computed get hasInfoError() {
     if (this._isModified && !this.name.trim()) {
       return {name: true}
     }

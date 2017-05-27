@@ -26,7 +26,7 @@ class PlayerInfo extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     let {player} = this.props.game
-    if (!player.hasError) {
+    if (!player.hasInfoError) {
       player.setIsEditing(false)
     }
   }
@@ -40,7 +40,7 @@ class PlayerInfo extends React.Component {
   handleReset = (e) => {
     e.preventDefault()
     let {player} = this.props.game
-    player.reset()
+    player.resetConfirm()
   }
 
   renderForm() {
@@ -53,12 +53,12 @@ class PlayerInfo extends React.Component {
 
         <div className={cx({
           "form-group": true,
-          "has-error": !!player.hasError
+          "has-error": !!player.hasInfoError
         })}>
           <label className="col-sm-2 control-label">
             名字
             {
-              player.hasError ? (<span>- 必须填写名字</span>) : null
+              player.hasInfoError ? (<span>- 必须填写名字</span>) : null
             }
           </label>
           <div className="col-sm-10">
