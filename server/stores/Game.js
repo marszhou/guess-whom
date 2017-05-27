@@ -95,10 +95,17 @@ class Game {
   //   }
   // }
 
-  setPlayerAnswer(playerId, answers) {
+  setPlayerAnswers(playerId, answers) {
     let {player} = this.getPlayerById(playerId)
     if (player) {
       player.setAnswers(answers)
+    }
+  }
+
+  setPlayerIsSurvey(playerId, isSurvey) {
+    let {player} = this.getPlayerById(playerId)
+    if (player) {
+      player.isSurvey = isSurvey
     }
   }
 

@@ -79,6 +79,7 @@ class PlayerAnswer extends React.Component{
               placeholder="例如：从前, 小时候，初中，大学等描述"
               name='period'
               value={item.period}
+              readOnly={player.isSurvey}
               onChange={_.partial(this.handleChange, index, 'period')}
             />
 
@@ -100,6 +101,7 @@ class PlayerAnswer extends React.Component{
               placeholder="对象可以是任何人，按自己的实际情况填写"
               name='target'
               value={item.target}
+              readOnly={player.isSurvey}
               onChange={_.partial(this.handleChange, index, 'target')}
             />
 

@@ -111,9 +111,18 @@ app.post('/player/:playerId/confirm', function(req, res) {
 })
 
 // set player answer
-app.post('/player/answer/:playerId', function(req, res) {
-  let answers = res.body.answers
-  game.setPlayerAnswer(playerId, answers)
+app.post('/player/:playerId/answers', function(req, res) {
+  broadcastGame()
+  let playerId = req.params.playerId
+  let answers = req.body.answers
+  if (answers!== undefined) {
+    game.setPlayerAnswers(playerId, answers)
+  }
+  let isSurvey = req.body.isSurvey
+  game.setPlayerIsSurvey(playerId, isSurvey)
+  res.json({
+    result: true
+  })
 })
 
 app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', function(req, res) {

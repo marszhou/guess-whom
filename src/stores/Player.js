@@ -168,6 +168,7 @@ class Player {
       answers: this.answers,
       isSurvey: this.isSurvey
     }
+    console.log(body)
     request.post('/player/' + this.id + '/answers', {body})
   }
   @action

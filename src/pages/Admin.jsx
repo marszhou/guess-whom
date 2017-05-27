@@ -15,6 +15,10 @@ class AdminPage extends React.Component {
     this.game.sendStage(1)
   }
 
+  goStage2 = () => {
+    this.game.sendStage(2)
+  }
+
   render() {
     return (
       <div>
@@ -26,6 +30,15 @@ class AdminPage extends React.Component {
           onClick={this.goStage1}
         >
         confirm({this.game.confirmedLength})
+        </button>
+
+        <button
+          type='button'
+          className={cx({btn: true, [this.game.stage1Ready ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
+          disabled={!this.game.stage1Ready}
+          onClick={this.goStage2}
+        >
+        start({this.game.surveyLength})
         </button>
       </div>
     )

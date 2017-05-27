@@ -101,6 +101,15 @@ class Game {
     }
     return false
   }
+  @computed get surveyLength() {
+    return _.filter(this.players, {isSurvey: true}).length
+  }
+  @computed get stage1Ready() {
+    if (this.stage === 1) {
+      return this.surveyLength === this.playersLength
+    }
+    return false
+  }
 
   // ----- request methods -----
   @Debounce(500)

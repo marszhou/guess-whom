@@ -24,10 +24,10 @@ class Player {
   }
 
   setAnswers(answers) {
-    if (this.answers.length === 0) {
-      this.answers = answers
-      return true
-    }
+    // if (this.answers) {
+    this.answers = answers
+      // return true
+    // }
   }
 
   setIsConfirmed(confirm) {
