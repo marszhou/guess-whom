@@ -14,7 +14,7 @@ let game = new Game()
 
 let player = new Player({id: 'bnd545fju55', name: 'Matt', status: 'hi there😃'})
 player.setIsConfirmed(true)
-game.stage = 0
+game.stage = 1
 game.addPlayer(player)
 
 let httpServer = getHttpServer(app)

@@ -92,7 +92,7 @@ class PlayerInfo extends React.Component {
           <div className="col-sm-offset-2 col-sm-10">
             <button
               type="button"
-              className="btn btn-primary"
+              className="btn btn-primary btn-block"
               onClick={this.handleSubmit}
             >
               确认

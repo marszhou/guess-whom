@@ -97,7 +97,7 @@ class Game {
   }
   @computed get stage0Ready() {
     if (this.stage === 0) {
-      return this.confirmedLength == this.playersLength
+      return this.confirmedLength === this.playersLength
     }
     return false
   }
