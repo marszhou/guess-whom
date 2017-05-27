@@ -7,7 +7,7 @@ class Player {
   constructor(info) {
     this.isUsed = false       // 是否被使用
     this.isFinished = false   // 是否完成使用
-    this.isConfirm = false
+    this.isConfirmed = false
     this.isSurvey = false
     this.id = info.id
     this.name = info.name
@@ -30,8 +30,8 @@ class Player {
     }
   }
 
-  setIsConfirm(confirm) {
-    this.isConfirm = confirm
+  setIsConfirmed(confirm) {
+    this.isConfirmed = confirm
   }
 
   setIsSurvey(v) {

@@ -12,6 +12,11 @@ const Game = require('./stores/Game')
 const Player = require('./stores/Player')
 let game = new Game()
 
+let player = new Player({id: 'bnd545fju55', name: 'Matt', status: 'hi there😃'})
+player.setIsConfirmed(true)
+game.stage = 0
+game.addPlayer(player)
+
 let httpServer = getHttpServer(app)
 
 app.use(express.static(path.join(__dirname, '/public')))
@@ -56,6 +61,7 @@ app.post('/game/stage/:stageId', function(req, res) {
   if (stageId === game.stage + 1) {
     game.setStage(+req.params.stageId)
     res.json({result: true})
+    broadcastGame()
   } else {
     res.json({result: false, error: {msg: 'illegal stage value'}})
   }
@@ -97,7 +103,7 @@ app.get('/players', function(req, res) {
 app.post('/player/:playerId/confirm', function(req, res) {
   let {confirm} = req.body
   let playerId = req.params.playerId
-  game.setPlayerIsConfirm(playerId, confirm)
+  game.setPlayerIsConfirmed(playerId, confirm)
   broadcastGame()
   res.json({
     result: true

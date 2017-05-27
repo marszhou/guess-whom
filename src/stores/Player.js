@@ -30,14 +30,14 @@ class Player {
   @action
   confirm() {
     this.isConfirmed = true
-    this.sendIsConfirm(true)
+    this.sendIsConfirmed(true)
   }
 
   @action
   reset() {
     this.isConfirmed = false
     this.isEditing = true
-    this.sendIsConfirm(false)
+    this.sendIsConfirmed(false)
   }
 
   @computed get hasError() {
@@ -86,6 +86,7 @@ class Player {
       this.id = Func.uniqId()
       window.localStorage.setItem('playerId', this.id)
     }
+    console.log('player id = ' + id)
   }
 
   /*
@@ -101,7 +102,7 @@ class Player {
   /**
     post /player/:playerId/confirm
    */
-  sendIsConfirm(confirm = true) {
+  sendIsConfirmed(confirm = true) {
     let body = {confirm}
     request.post('/player/' + this.id + '/confirm', {body})
     .then(response => {

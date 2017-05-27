@@ -5,12 +5,13 @@ import PlayerStore from './Player'
 import {SOCKET_EVENTS} from 'src/consts'
 import request from 'utils/Request'
 import {Debounce} from 'lodash-decorators'
+import _ from 'lodash'
 
 class Game {
   constructor(role='player') {
     this.role = role
     extendObservable(this, {
-      stage: 0,
+      stage: -1,
       players: []
     })
     if (role === 'player') {
@@ -21,7 +22,7 @@ class Game {
   }
 
   init() {
-    this.stage = 0
+    this.stage = -1
     this.players = []
 
     // this.fetchPlayers()
@@ -88,8 +89,17 @@ class Game {
     }
   }
 
-  @computed get userCount() {
-    return this.users.length
+  @computed get playersLength() {
+    return this.players.length
+  }
+  @computed get confirmedLength() {
+    return _.filter(this.players, {isConfirmed: true}).length
+  }
+  @computed get stage0Ready() {
+    if (this.stage === 0) {
+      return this.confirmedLength == this.playersLength
+    }
+    return false
   }
 
   // ----- request methods -----
@@ -97,7 +107,6 @@ class Game {
   fetchPlayers() {
     request.get('/players')
     .then(action(({players}) => {
-      console.log(players)
       this.players = players
     }))
   }
@@ -114,9 +123,12 @@ class Game {
   fetchGameStage() {
     request.get('/game/stage')
     .then(action(({stage}) => {
-      console.log(stage)
       this.stage = stage
     }))
+  }
+
+  sendStage(stage) {
+    request.post('/game/stage/'+stage)
   }
 }
 module.exports = Game

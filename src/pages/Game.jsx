@@ -47,8 +47,8 @@ class GamePage extends React.Component {
                 <td>{index+1}</td>
                 <td>{player.name}</td>
                 <td>{player.status}</td>
-                <td className={player.isConfirm ? 'success' : 'danger'}>
-                {this.renderBool(player.isConfirm)}
+                <td className={player.isConfirmed ? 'success' : 'danger'}>
+                {this.renderBool(player.isConfirmed)}
                 </td>
                 <td className={player.isSurvey ? 'success' : 'danger'}>
                 {this.renderBool(player.isSurvey)}

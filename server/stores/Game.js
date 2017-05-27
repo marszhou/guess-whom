@@ -38,10 +38,10 @@ class Game {
     }
   }
 
-  setPlayerIsConfirm(playerId, confirm) {
+  setPlayerIsConfirmed(playerId, confirm) {
     let {player} = this.getPlayerById(playerId)
     if (player) {
-      player.setIsConfirm(confirm)
+      player.setIsConfirmed(confirm)
     }
   }
 
