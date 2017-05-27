@@ -43,6 +43,15 @@ class PlayerAnswer extends React.Component{
   handleSubmit = () => {
     let {player} = this.props.game
     this.error = player.checkAnswers()
+
+    if (!this.error) {
+      player.sendAnswers()
+    }
+  }
+
+  handleCancel = () => {
+    let {player} = this.props.game
+    player.cancelAnswers()
   }
 
   renderItem = (item, index) => {
@@ -82,7 +91,7 @@ class PlayerAnswer extends React.Component{
           "has-error": !validate.target
         })}>
           <label className="col-sm-2 control-label">
-            榜样
+            谁是你的榜样？
           </label>
           <div className="col-sm-10">
             <input
@@ -146,13 +155,33 @@ class PlayerAnswer extends React.Component{
                 type="button"
                 className="btn btn-primary btn-block"
                 onClick={this.handleSubmit}
+                disabled={player.isSurvey}
               >
-                确认
+              {
+                player.isSurvey ? (
+                  <span>
+                    准备就绪
+                    <img src="static/assets/svg/loading-bubbles.svg" alt="Loading icon" style={{width: 16}}/>
+                  </span>
+                ) : '确认'
+              }
               </button>
             </div>
           </div>
 
-
+          {
+            player.isSurvey ? (<div className="form-group">
+              <div className="col-sm-offset-2 col-sm-10">
+                <button
+                  type="button"
+                  className="btn btn-info btn-block"
+                  onClick={this.handleCancel}
+                >
+                  继续修改
+                </button>
+              </div>
+            </div>) : null
+          }
         </form>
       </div>
     )

@@ -26,6 +26,7 @@ class Player {
 
   @observable _isModified = false // 是否人为修改过
   @observable isConfirmed = false
+  @observable isSurvey = false
 
   @action
   addAnswer(period = '') {
@@ -159,6 +160,23 @@ class Player {
     .then(response => {
 
     })
+  }
+  @action
+  sendAnswers() {
+    this.isSurvey = true
+    let body = {
+      answers: this.answers,
+      isSurvey: this.isSurvey
+    }
+    request.post('/player/' + this.id + '/answers', {body})
+  }
+  @action
+  cancelAnswers() {
+    this.isSurvey = false
+    let body = {
+      isSurvey: this.isSurvey
+    }
+    request.post('/player/' + this.id + '/answers', {body})
   }
 }
 
