@@ -129,18 +129,22 @@ class PlayerInfo extends React.Component {
           <div className="col-sm-offset-2 col-sm-10">
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-success btn-block"
               onClick={this.handleConfirm}
               disabled={player.isConfirmed}
             >
               {
-                (player.isConfirmed) ? (<span>一切就绪准备发射<img src="static/assets/svg/loading-bubbles.svg" alt="Loading icon" style={{width: 16}}/></span>) : 'I\'m Ready!'
+                (player.isConfirmed) ? (<span>一切就绪<img src="static/assets/svg/loading-bubbles.svg" alt="Loading icon" style={{width: 16}}/></span>) : 'I\'m Ready!'
               }
             </button>
-            {" "}
+          </div>
+        </div>
+
+        <div className="form-group">
+          <div className="col-sm-offset-2 col-sm-10">
             <button
               type="button"
-              className="btn btn-default"
+              className="btn btn-default btn-block"
               onClick={this.handleReset}
             >
               再改改...
