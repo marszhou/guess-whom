@@ -28,6 +28,20 @@ class Player {
   @observable isConfirmed = false
 
   @action
+  addAnswer(period = '') {
+    let answer = {
+      period,
+      target: ''
+    }
+    this.answers.push(answer)
+  }
+
+  @action
+  removeAnswer(index) {
+    this.answers.splice(index, 1)
+  }
+
+  @action
   confirm() {
     this.isConfirmed = true
     this.sendIsConfirmed(true)
