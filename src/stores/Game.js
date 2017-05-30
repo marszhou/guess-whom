@@ -10,6 +10,8 @@ import _ from 'lodash'
 class Game {
   constructor(role='player') {
     this.role = role
+    // this.disconnectOccured = false
+
     extendObservable(this, {
       stage: -1,
       players: [],
@@ -27,7 +29,6 @@ class Game {
     this.players = []
 
     // this.fetchPlayers()
-    this.fetchGame()
   }
 
   initSocket(socket) {
@@ -54,7 +55,14 @@ class Game {
           playerId: this.player.id
         })
       }
+
+      this.fetchGame()
     })
+
+    // this.socket.on('disconnect', () => {
+    //   console.log('client lost connection to server')
+    //   this.disconnectOccured = true
+    // })
 
     SOCKET_EVENTS.public.forEach(event => { // 监听事件
       this.socket.on(event, this.handleSocketEvent.bind(this, event))
