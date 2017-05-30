@@ -31,6 +31,21 @@ class Game {
     // this.fetchPlayers()
   }
 
+  // @return table layout
+  // ex: return(5)
+  //  then it represent there will be a 5x5 table
+  //  which it inside is 3x3 blank
+  // if there were 21 players
+  //  then will be 7x7 : Math.ceil((21-8)/4) + 3 = 7
+  calculateGameLayout() {
+    let count = this.players.length
+    if (count<=8) {
+      return 3
+    } else {
+      return Math.ceil((count - 8)/4) + 3
+    }
+  }
+
   initSocket(socket) {
     this.socket = socket
     this.socket.on('connect', () => {
