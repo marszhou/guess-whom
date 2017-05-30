@@ -7,6 +7,7 @@ class GuessPlayerCell extends React.Component {
       <div className='player' style={{}}>
         <h4>{player.name}</h4>
         <desc>{player.status}</desc>
+        {this.props.isDone ? '✔︎' : ''}
       </div>
     )
   }

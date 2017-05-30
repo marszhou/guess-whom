@@ -15,7 +15,8 @@ class Game {
     extendObservable(this, {
       stage: -1,
       players: [],
-      candidate: null
+      candidate: null,
+      candidates: []
     })
     if (role === 'player') {
       this.player = new PlayerStore(socket)
@@ -162,6 +163,10 @@ class Game {
       this.stage = game.stage
       this.players = game.players
       this.candidate = game.candidate
+      this.candidates = game.candidates
+      if (this.player) {
+        this.player.setData(game.player)
+      }
     }))
   }
   @Debounce(500)
@@ -190,7 +195,20 @@ class Game {
     } else {
       this.candidate.chosens.push({playerId, choiceId})
     }
+    find = _.find(this.player.choices, {candidateId})
+    if (find) {
+      find.choiceId = choiceId
+    } else {
+      this.player.choices.push({candidateId, choiceId})
+    }
     request.post('/game/candidate/'+candidateId+'/player/'+playerId+'/choice/'+choiceId)
+  }
+
+  @computed get guessStatus() {
+    if (!this.candidate) return null
+    return this.candidate.chosens.map(({playerId}) => {
+      return playerId
+    })
   }
 }
 module.exports = Game

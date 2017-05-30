@@ -31,6 +31,11 @@ class Player {
   @observable isSurvey = false
 
   @action
+  setData(data) {
+    _.extend(this, data)
+  }
+
+  @action
   addAnswer(period = '') {
     let answer = {
       period,

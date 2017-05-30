@@ -1,6 +1,6 @@
 import React from 'react'
 import GameStore from 'src/stores/Game'
-import {observer} from 'mobx-react'
+import {observer, Provider} from 'mobx-react'
 import {observable, action}  from 'mobx'
 import Page from 'src/stores/Page'
 import $ from 'jquery'
@@ -52,7 +52,7 @@ class GamePage extends React.Component {
   bordre: 0;
 }
 .game-content td.cell {
-  width: ${100/size}%,
+  width: ${100/size}%;
   height: ${this.contentHeight/size}px
 }
 .game-content td.cell div.player{
@@ -64,7 +64,7 @@ class GamePage extends React.Component {
 .game-content td.content div.frame{
   width: ${this.contentWidth/size*(size-2)}px;
   height: ${this.contentHeight/size*(size-2)}px;
-  overflow: hidden;
+  overflow: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -200,6 +200,11 @@ desc {
       let player = cellIndex < this.game.playersLength? this.game.players[cellIndex] : null
       ++this._cellLoopIndex
 
+      let isDone = false
+      if (player && this.game.guessStatus) {
+        isDone = this.game.guessStatus.indexOf(player.id) > -1
+      }
+
       return (
         <td className={cx(classNames)} key={column} {...props}>
           {
@@ -208,7 +213,8 @@ desc {
                 width={this.contentWidth / size}
                 height={this.contentHeight / size}
                 player={player}
-              />) : null
+                isDone={isDone}
+              />) : '　'
           }
         </td>
       )
@@ -260,9 +266,11 @@ desc {
       content = this.renderEnd()
     }
     return (
-      <div className='game'>
-        {content}
-      </div>
+      <Provider game={this.game}>
+        <div className='game'>
+          {content}
+        </div>
+      </Provider>
     )
   }
 }

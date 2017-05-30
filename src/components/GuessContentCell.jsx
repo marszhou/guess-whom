@@ -1,11 +1,12 @@
 import React from 'react'
+import {computed} from 'mobx'
+import {inject, observer} from 'mobx-react'
 
+@inject('game')
+@observer
 class GuessContentCell extends React.Component {
   renderCandidate(candidate) {
     return (<div className='frame'>
-        <h2>
-          ???“他/她”是谁???
-        </h2>
         <img src="static/assets/no-avatar.jpg"
             alt="no avatar" style={{width: 100, height: 100, margin: 5}}/>
 
@@ -21,7 +22,7 @@ class GuessContentCell extends React.Component {
         <label style={{color: "#AAA"}}>请作答</label>
         <div>
           {
-            // candidate.chosens.map()
+            candidate.chosens.length+"/" + this.props.game.playersLength+'人已选择'
           }
         </div>
       </div>)

@@ -3,10 +3,20 @@ import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 import cx from 'classnames'
 import _ from 'lodash'
+import Page from 'src/stores/Page'
 
 @inject('game')
 @observer
 class PlayerGuess extends React.Component {
+
+  componentWillMount() {
+    Page.pushTitle('投票')
+  }
+
+  componentWillUnmount() {
+    Page.popTitle()
+  }
+
   @computed get choice() {
     const {candidate, player} = this.props.game
     let find = _.find(candidate.chosens, {playerId: player.id})
@@ -14,6 +24,17 @@ class PlayerGuess extends React.Component {
       return find.choiceId
     }
     return find
+  }
+
+  @computed get choosed() {
+    const {player} = this.props.game
+    return player.choices.map(({choiceId}) => {
+      return choiceId
+    })
+  }
+
+  isChoosed(id) {
+    return this.choosed.indexOf(id) > -1
   }
 
   handleChange = (e) => {
@@ -43,11 +64,11 @@ class PlayerGuess extends React.Component {
                       <input
                         type="radio"
                         name="ret"
-                        onClick={this.handleChange}
+                        onChange={this.handleChange}
                         value={player.id}
                         checked={player.id === this.choice}
                         />
-                      {player.name}
+                      {this.isChoosed(player.id)?'🚩️':''} {player.name}
                     </label>
                   </div>
                   )
