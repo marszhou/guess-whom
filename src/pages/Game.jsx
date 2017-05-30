@@ -4,6 +4,8 @@ import {observer} from 'mobx-react'
 import {observable, action}  from 'mobx'
 import Page from 'src/stores/Page'
 import $ from 'jquery'
+import _ from 'lodash'
+import cx from 'classnames'
 
 @observer
 class GamePage extends React.Component {
@@ -28,11 +30,60 @@ class GamePage extends React.Component {
   }
 
   renderCalculatedCss() {
+    let size = this.game.calculateGameLayoutSize()
     return (<style>
-      {`.game-content {
-        width: ${this.contentWidth}px;
-        height: ${this.contentHeight}px;
-      }`}
+      {`
+.game-content {
+  width: ${this.contentWidth}px;
+  height: ${this.contentHeight}px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid black;
+  border-spacing: 0px;
+  border-collapse: separate;
+}
+.game-content td{
+  margin: 0;
+  padding: 0;
+  bordre: 0;
+}
+.game-content .cell {
+  width: ${100/size}%,
+  height: ${this.contentHeight/size}px
+}
+.game-content .content {
+  border: 1px solid black;
+}
+.game-content tr.top .cell,
+.game-content tr.bottom .cell {
+  border-right: 1px solid black;
+}
+.game-content tr.top .cell:last-of-type,
+.game-content tr.bottom .cell:last-of-type {
+  border-right: 0;
+}
+.game-content td.cell.left,
+.game-content td.cell.right {
+  border-bottom: 1px solid black;
+}
+
+.game-content tr.bottom td.cell.left,
+.game-content tr.bottom td.cell.right {
+  border-bottom: 0;
+}
+
+// .game-content .cell {
+//   border-style: solid;
+//   border-color: black;
+//   border-width: 0;
+// }
+// .game-content .cell.left {
+//   border-left-width: 1px;
+// }
+// .game-content .cell.right {
+//   border-right-width: 1px;
+// }
+      `}
     </style>)
   }
 
@@ -92,9 +143,66 @@ class GamePage extends React.Component {
     return this.renderTableListPlayers()
   }
 
-  renderGuess() {
+  renderTable(size, PlayerCell, ContentCell) {
     return (
-      <div className='game-content'></div>
+      <table className='game-content'><tbody>
+        {
+          _.range(size).map(row => {
+            let classNames = {}
+            if (row === 0) {classNames.top = true}
+            if (row === size - 1) {classNames.bottom = true}
+
+            return (
+              <tr key={row} className={cx(classNames)}>
+                {
+                  _.range(size).map(column => {
+                    return (
+                      this.renderCell(size, column, row, PlayerCell, ContentCell)
+                    )
+                  })
+                }
+              </tr>
+            )
+          })
+        }
+      </tbody></table>
+    )
+  }
+
+  renderCell(size, column, row, PlayerCell, ContentCell) {
+    if (column === 0 || row === 0 || column === size - 1 || row === size - 1) {
+      let props = {}
+      let classNames = {cell: true}
+      if (column === 0) { classNames.left = true}
+      if (column === size - 1) {classNames.right = true}
+
+      return (
+        <td className={cx(classNames)} key={column} {...props}>
+          {column}, {row}
+        </td>
+      )
+    } else if (column === 1 && row === 1){
+      return (
+        <td
+          key="content"
+          className="content"
+          colSpan={size - 2}
+          rowSpan={size - 2}
+        >
+
+        </td>
+      )
+    }
+    return null
+  }
+
+  renderGuess() {
+    let size = this.game.calculateGameLayoutSize()
+    return (
+      <div>
+        {this.renderCalculatedCss()}
+        {this.renderTable(size, null, null)}
+      </div>
     )
   }
 
@@ -118,7 +226,6 @@ class GamePage extends React.Component {
     }
     return (
       <div className='game'>
-        {this.renderCalculatedCss()}
         {content}
       </div>
     )

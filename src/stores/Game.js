@@ -37,7 +37,7 @@ class Game {
   //  which its inside has a 3x3 blank area
   // if there were 21 players
   //  then will be 7x7 : Math.ceil((21-4)/4) + 2 = 7
-  calculateGameLayout() {
+  calculateGameLayoutSize() {
     let count = this.players.length
     if (count <= 8) { // minimal is 3x3
       return 3
