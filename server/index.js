@@ -12,10 +12,15 @@ const Game = require('./stores/Game')
 const Player = require('./stores/Player')
 let game = new Game()
 
-let player = new Player({id: 'bnd545fju55', name: 'Matt', status: 'hi there😃'})
+// -- stage 1
+let player = new Player({id: 'ee5fzqs737q', name: 'Matt', status: 'hi there😃'})
 player.setIsConfirmed(true)
 game.stage = 1
 game.addPlayer(player)
+// -- stage 2
+player.setAnswers([{period: 'a', target: 'x'}, {period: 'b', target: 'y'}])
+player.isSurvey = true
+game.stage = 2
 
 let httpServer = getHttpServer(app)
 
@@ -128,6 +133,22 @@ app.post('/player/:playerId/answers', function(req, res) {
 app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', function(req, res) {
   const {playerId, targetId, choiceId} = this.req.params
   game.guess(playerId, targetId, choiceId)
+})
+
+app.post('/game/draw', function(req, res) {
+  let ret = game.draw()
+  broadcastGame()
+  res.json({
+    result: ret
+  })
+})
+
+app.post('/game/end_draw', function(req, res) {
+  let ret = game.endDraw()
+  broadcastGame()
+  res.json({
+    result: ret
+  })
 })
 
 // --

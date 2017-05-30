@@ -111,6 +111,10 @@ class Game {
     return false
   }
 
+  draw() {
+    this.sendDraw()
+  }
+
   // ----- request methods -----
   @Debounce(500)
   fetchPlayers() {
@@ -134,6 +138,9 @@ class Game {
     .then(action(({stage}) => {
       this.stage = stage
     }))
+  }
+  sendDraw() {
+    request.post('/game/draw')
   }
 
   sendStage(stage) {

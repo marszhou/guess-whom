@@ -19,6 +19,10 @@ class AdminPage extends React.Component {
     this.game.sendStage(2)
   }
 
+  handleStage3 = () => {
+    this.game.draw()
+  }
+
   render() {
     return (
       <div>
@@ -40,6 +44,16 @@ class AdminPage extends React.Component {
         >
         start({this.game.surveyLength})
         </button>
+
+        <button
+          type='button'
+          className={cx({btn: true, "btn-block": true})}
+          disabled={true}
+          onClick={this.handleStage3}
+        >
+          抽取（n剩余）
+        </button>
+
       </div>
     )
   }

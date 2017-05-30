@@ -5,8 +5,8 @@ const Round = require('./Round')
 
 // stage 是传送给客户端，用于客户端决定显示什么游戏界面的
 const STAGE = {
-  init: 0,
-  playerLogin: 1,
+  info: 0,
+  survey: 1,
   guess: 2,
   result: 3,
   end: 4
@@ -72,28 +72,35 @@ class Game {
     return _.filter(this.players, player => !player.isUsed)
   }
 
+  draw() {
+    if (this.stage === STAGE.guess) {
+      if (!this.candidate) {
+        let candidate = this._drawCandidate()
+        if (candidate) {
+          candidate.isUsed = true
+          this.candidate = candidate
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+  endDraw() {
+    if (this.stage === STAGE.guess) {
+      if (this.candidate) {
+        this.candidate = null
+        return true
+      }
+    }
+
+    return false
+  }
+
   _drawCandidate() {
     let availables = this._availableCandidates()
     return _.sample(availables)
   }
-
-  // startNewRound(candidateCount) {
-  //   let round = new Round()
-  //   let candidates = this._drawCandidate(candidateCount)
-  //   if (candidates.length > 0) {
-  //     round.start(candidates)
-  //     this.rounds.push(round)
-  //     this.currentRound = round
-  //     return round
-  //   }
-  // }
-
-  // endRound() {
-  //   if (this.currentRound) {
-  //     this.currentRound.end()
-  //     this.currentRound = null
-  //   }
-  // }
 
   setPlayerAnswers(playerId, answers) {
     let {player} = this.getPlayerById(playerId)
@@ -104,6 +111,7 @@ class Game {
 
   setPlayerIsSurvey(playerId, isSurvey) {
     let {player} = this.getPlayerById(playerId)
+    console.log(player)
     if (player) {
       player.isSurvey = isSurvey
     }

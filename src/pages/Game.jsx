@@ -65,7 +65,7 @@ class GamePage extends React.Component {
   render() {
     return (
       <div className='game'>
-
+        <h2>game stage = {this.game.stage}</h2>
         {this.renderPlayers()}
       </div>
     )
