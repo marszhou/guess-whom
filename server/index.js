@@ -29,6 +29,7 @@ function insertRandomPlayer() {
   game.addPlayer(player)
 }
 
+// testing data
 // -- stage 1
 let player = new Player({id: 'ee5fzqs737q', name: 'Matt', status: 'hi there, people😃'})
 player.setIsConfirmed(true)
@@ -38,8 +39,9 @@ game.addPlayer(player)
 player.setAnswers([{period: 'a', target: 'x'}, {period: 'b', target: 'y'}])
 player.isSurvey = true
 game.stage = 2
-
 _.range(21).forEach(i => insertRandomPlayer())
+// end testing data
+
 
 let httpServer = getHttpServer(app)
 

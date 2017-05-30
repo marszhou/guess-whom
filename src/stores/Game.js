@@ -181,5 +181,16 @@ class Game {
   sendStage(stage) {
     request.post('/game/stage/'+stage)
   }
+
+  @action
+  sendChoice(candidateId, playerId, choiceId) {
+    let find = _.find(this.candidate.chosens, {playerId})
+    if (find) {
+      find.choiceId = choiceId
+    } else {
+      this.candidate.chosens.push({playerId, choiceId})
+    }
+    request.post('/game/candidate/'+candidateId+'player/'+playerId+'/choice/'+choiceId)
+  }
 }
 module.exports = Game

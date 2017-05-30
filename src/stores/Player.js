@@ -21,8 +21,10 @@ class Player {
   score = 0
   _isOnline = false
   _lastHeartBeat = 0
+
   @observable answers = []
-  @observable guesses = []
+  @observable chosens = []
+  @observable choices = []
 
   @observable _isModified = false // 是否人为修改过
   @observable isConfirmed = false

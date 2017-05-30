@@ -3,6 +3,7 @@ import {Provider, observer} from 'mobx-react'
 
 import PlayerInfo from 'components/PlayerInfo'
 import PlayerAnswer from 'components/PlayerAnswer'
+import PlayerGuess from 'components/PlayerGuess'
 import GameStore from 'src/stores/Game'
 
 import Page from 'src/stores/Page'
@@ -27,6 +28,8 @@ class Player extends React.Component {
         content = (<PlayerAnswer/>)
         break
       case 2:
+        content = (<PlayerGuess/>)
+        break
       case 3:
       default:
         content = null

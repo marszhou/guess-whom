@@ -20,7 +20,7 @@ class Game {
   init() {
     this.players = []
     this.candidates = []
-    this.stage = STAGE.init
+    this.stage = STAGE.info
   }
 
   addPlayer(player) {
