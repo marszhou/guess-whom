@@ -118,13 +118,14 @@ class Game {
     }
   }
 
-  guess(playerId, targetId, choiceId) {
+  guess(candidateId, playerId, choiceId) {
     let {player} = this.getPlayerById(playerId)
-    let {player: target} = this.getPlayerById(targetId)
+    let {player: candidate} = this.getPlayerById(candidateId)
     let {player: choice} = this.getPlayerById(choiceId)
 
-    if (player && target && choice) {
-      player.addChoice({target: target, choice: choice})
+    if (player && candidate && choice) {
+      player.addChoice({candidateId, choiceId})
+      candidate.addChosen({playerId, choiceId})
     }
   }
 

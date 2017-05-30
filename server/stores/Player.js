@@ -38,12 +38,22 @@ class Player {
     this.isSurvey = v
   }
 
-  addChoice(target, choice) {
-    this.choices.push({target, choice})
+  addChoice({candidateId, choiceId}) {
+    let find = _.find(this.choices, {candidateId})
+    if (find) {
+      find.choiceId = choiceId
+    } else {
+      this.choices.push({candidateId, choiceId})
+    }
   }
 
-  addChosen(player, choice) {
-    this.chosens({player, choice})
+  addChosen({playerId, choiceId}) {
+    let find = _.find(this.chosens, {playerId})
+    if (find) {
+      find.choiceId = choiceId
+    } else {
+      this.chosens.push({playerId, choiceId})
+    }
   }
 }
 

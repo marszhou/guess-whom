@@ -151,10 +151,10 @@ app.post('/player/:playerId/answers', function(req, res) {
   })
 })
 
-app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', function(req, res) {
-  const {playerId, targetId, choiceId} = this.req.params
-  game.guess(playerId, targetId, choiceId)
-})
+// app.post('/player/guess/player/:playerId/target/:targetId/choice/:choiceId', function(req, res) {
+//   const {playerId, targetId, choiceId} = this.req.params
+//   game.guess(playerId, targetId, choiceId)
+// })
 
 app.post('/game/draw', function(req, res) {
   let ret = game.draw()
@@ -172,6 +172,15 @@ app.post('/game/end_draw', function(req, res) {
   })
 })
 
+app.post('/game/candidate/:candidateId/player/:playerId/choice/:choiceId', function(req, res) {
+  const {candidateId, playerId, choiceId} = req.params
+  game.guess(candidateId, playerId, choiceId)
+  broadcastPublicGame()
+  res.json({
+    result: true
+  })
+})
+
 // --
 
 function broadcast(event, ...channels) {
@@ -181,6 +190,10 @@ function broadcast(event, ...channels) {
 
 function broadcastUserList() {
   broadcast(['player_list'], 'game', 'admin')
+}
+
+function broadcastPublicGame() {
+  broadcast(['game'], 'admin', 'game')
 }
 
 function broadcastGame() {

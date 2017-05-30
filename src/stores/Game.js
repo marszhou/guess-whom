@@ -190,7 +190,7 @@ class Game {
     } else {
       this.candidate.chosens.push({playerId, choiceId})
     }
-    request.post('/game/candidate/'+candidateId+'player/'+playerId+'/choice/'+choiceId)
+    request.post('/game/candidate/'+candidateId+'/player/'+playerId+'/choice/'+choiceId)
   }
 }
 module.exports = Game
