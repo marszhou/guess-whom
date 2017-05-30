@@ -5,11 +5,11 @@ const _ = require('lodash')
 
 class Player {
   constructor(info) {
+    this.id = info.id
     this.isUsed = false       // 是否被使用
     this.isDisposed = false   // 是否完成使用
     this.isConfirmed = false
     this.isSurvey = false
-    this.id = info.id
     this.name = info.name
     this.status = info.status
     this.answers = info.answers

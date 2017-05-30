@@ -25,7 +25,7 @@ class GamePage extends React.Component {
                   )
   }
 
-  renderPlayers() {
+  renderTableListPlayers() {
     return (
       <table
         className="table table-striped"
@@ -62,11 +62,39 @@ class GamePage extends React.Component {
     )
   }
 
+  renderPrepareScene() {
+    return this.renderTableListPlayers()
+  }
+
+  renderGuess() {
+    return (
+      <div style={{display: "flow"}}></div>
+    )
+  }
+
+  renderResult() {
+
+  }
+
+  renderEnd() {
+
+  }
+
   render() {
+    let content = null
+    if (this.game.stage === 0 || this.game.stage === 1) {
+      content = this.renderPrepareScene()
+    } else if (this.game.stage === 2) {
+      content = this.renderGuess()
+    } else if (this.game.stage === 3) {
+      content = this.renderResult()
+    } else if (this.game.stage === 4) {
+      content = this.renderEnd()
+    }
     return (
       <div className='game'>
         <h2>game stage = {this.game.stage}</h2>
-        {this.renderPlayers()}
+        {content}
       </div>
     )
   }

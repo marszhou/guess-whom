@@ -6,11 +6,24 @@ let app = express()
 let path = require('path')
 let bodyParser = require('body-parser')
 let logger = require('./utils/logger').getLogger('console')
+let {uniqId} = require('../src/utils/Func')
+let _ = require('lodash')
 logger.setLevel('DEBUG')
 
 const Game = require('./stores/Game')
 const Player = require('./stores/Player')
 let game = new Game()
+
+function insertRandomPlayer() {
+  let player = new Player({
+    id: uniqId(),
+    name: uniqId(),
+    status: uniqId()
+  })
+  player.isConfirmed = true
+  player.isSurvey = true
+  game.addPlayer(player)
+}
 
 // -- stage 1
 let player = new Player({id: 'ee5fzqs737q', name: 'Matt', status: 'hi there😃'})
@@ -21,6 +34,8 @@ game.addPlayer(player)
 player.setAnswers([{period: 'a', target: 'x'}, {period: 'b', target: 'y'}])
 player.isSurvey = true
 game.stage = 2
+
+_.range(10).forEach(i => insertRandomPlayer())
 
 let httpServer = getHttpServer(app)
 
