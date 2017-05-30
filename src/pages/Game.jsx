@@ -1,13 +1,39 @@
 import React from 'react'
 import GameStore from 'src/stores/Game'
 import {observer} from 'mobx-react'
+import {observable, action}  from 'mobx'
 import Page from 'src/stores/Page'
+import $ from 'jquery'
 
 @observer
 class GamePage extends React.Component {
+  @observable contentWidth = 0
+  @observable contentHeight = 0
+
   componentWillMount() {
     this.game = new GameStore('game')
     Page.pushTitle('我猜')
+
+    this.recalculateContentDimension()
+    $(window).on('resize', this.recalculateContentDimension)
+  }
+
+  componentWillUnmount() {
+    $(window).off('resize', this.recalculateContentDimension)
+  }
+  @action
+  recalculateContentDimension = () => {
+    this.contentWidth = window.document.documentElement.clientWidth - 30 * 2
+    this.contentHeight = window.document.documentElement.clientHeight - 85 - 44
+  }
+
+  renderCalculatedCss() {
+    return (<style>
+      {`.game-content {
+        width: ${this.contentWidth}px;
+        height: ${this.contentHeight}px;
+      }`}
+    </style>)
   }
 
   renderBool(bool) {
@@ -68,12 +94,11 @@ class GamePage extends React.Component {
 
   renderGuess() {
     return (
-      <div style={{display: "flow"}}></div>
+      <div className='game-content'></div>
     )
   }
 
   renderResult() {
-
   }
 
   renderEnd() {
@@ -93,7 +118,7 @@ class GamePage extends React.Component {
     }
     return (
       <div className='game'>
-        <h2>game stage = {this.game.stage}</h2>
+        {this.renderCalculatedCss()}
         {content}
       </div>
     )

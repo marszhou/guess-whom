@@ -34,12 +34,12 @@ class Game {
   // @return table layout
   // ex: return(5)
   //  then it represent there will be a 5x5 table
-  //  which it inside is 3x3 blank
+  //  which its inside has a 3x3 blank area
   // if there were 21 players
-  //  then will be 7x7 : Math.ceil((21-8)/4) + 3 = 7
+  //  then will be 7x7 : Math.ceil((21-4)/4) + 2 = 7
   calculateGameLayout() {
     let count = this.players.length
-    if (count<=8) {
+    if (count <= 8) { // minimal is 3x3
       return 3
     } else {
       return Math.ceil((count - 8)/4) + 3
