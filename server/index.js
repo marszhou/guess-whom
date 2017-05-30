@@ -35,7 +35,7 @@ player.setAnswers([{period: 'a', target: 'x'}, {period: 'b', target: 'y'}])
 player.isSurvey = true
 game.stage = 2
 
-_.range(10).forEach(i => insertRandomPlayer())
+_.range(21).forEach(i => insertRandomPlayer())
 
 let httpServer = getHttpServer(app)
 

@@ -7,8 +7,12 @@ import $ from 'jquery'
 import _ from 'lodash'
 import cx from 'classnames'
 
+import GuessPlayerCell from 'components/GuessPlayerCell'
+import GuessContentCell from 'components/GuessContentCell'
+
 @observer
 class GamePage extends React.Component {
+  _cellLoopIndex = 0
   @observable contentWidth = 0
   @observable contentHeight = 0
 
@@ -47,9 +51,19 @@ class GamePage extends React.Component {
   padding: 0;
   bordre: 0;
 }
-.game-content .cell {
+.game-content td.cell {
   width: ${100/size}%,
   height: ${this.contentHeight/size}px
+}
+.game-content td.cell div.player{
+  width: ${this.contentWidth/size}px;
+  height: ${this.contentHeight/size}px;
+  overflow: hidden;
+}
+.game-content td.content div.main{
+  width: ${this.contentWidth/size*(size-2)}px;
+  height: ${this.contentHeight/size*(size-2)}px;
+  overflow: hidden;
 }
 .game-content .content {
   border: 1px solid black;
@@ -71,18 +85,6 @@ class GamePage extends React.Component {
 .game-content tr.bottom td.cell.right {
   border-bottom: 0;
 }
-
-// .game-content .cell {
-//   border-style: solid;
-//   border-color: black;
-//   border-width: 0;
-// }
-// .game-content .cell.left {
-//   border-left-width: 1px;
-// }
-// .game-content .cell.right {
-//   border-right-width: 1px;
-// }
       `}
     </style>)
   }
@@ -144,6 +146,7 @@ class GamePage extends React.Component {
   }
 
   renderTable(size, PlayerCell, ContentCell) {
+    this._cellLoopIndex = 0
     return (
       <table className='game-content'><tbody>
         {
@@ -176,9 +179,20 @@ class GamePage extends React.Component {
       if (column === 0) { classNames.left = true}
       if (column === size - 1) {classNames.right = true}
 
+      let cellIndex = this._cellLoopIndex
+      let player = cellIndex < this.game.playersLength? this.game.players[cellIndex] : null
+      ++this._cellLoopIndex
+
       return (
         <td className={cx(classNames)} key={column} {...props}>
-          {column}, {row}
+          {
+            player ?
+              (<GuessPlayerCell
+                width={this.contentWidth / size}
+                height={this.contentHeight / size}
+                player={player}
+              />) : null
+          }
         </td>
       )
     } else if (column === 1 && row === 1){
@@ -189,7 +203,11 @@ class GamePage extends React.Component {
           colSpan={size - 2}
           rowSpan={size - 2}
         >
-
+          <GuessContentCell
+            width={this.contentWidth / size * (size - 2)}
+            height={this.contentHeight / size * (size - 2)}
+            candidate={this.game.candidate}
+          />
         </td>
       )
     }
@@ -201,7 +219,7 @@ class GamePage extends React.Component {
     return (
       <div>
         {this.renderCalculatedCss()}
-        {this.renderTable(size, null, null)}
+        {this.renderTable(size, GuessPlayerCell, GuessContentCell)}
       </div>
     )
   }
