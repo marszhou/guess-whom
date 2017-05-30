@@ -6,7 +6,7 @@ const _ = require('lodash')
 class Player {
   constructor(info) {
     this.isUsed = false       // 是否被使用
-    this.isFinished = false   // 是否完成使用
+    this.isDisposed = false   // 是否完成使用
     this.isConfirmed = false
     this.isSurvey = false
     this.id = info.id

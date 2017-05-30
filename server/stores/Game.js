@@ -19,6 +19,7 @@ class Game {
 
   init() {
     this.players = []
+    this.candidates = []
     this.stage = STAGE.init
   }
 
@@ -89,11 +90,11 @@ class Game {
   endDraw() {
     if (this.stage === STAGE.guess) {
       if (this.candidate) {
+        this.candidates.push(this.candidate.id)
         this.candidate = null
         return true
       }
     }
-
     return false
   }
 

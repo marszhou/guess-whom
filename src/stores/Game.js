@@ -12,7 +12,8 @@ class Game {
     this.role = role
     extendObservable(this, {
       stage: -1,
-      players: []
+      players: [],
+      candidate: null
     })
     if (role === 'player') {
       this.player = new PlayerStore(socket)
@@ -110,9 +111,16 @@ class Game {
     }
     return false
   }
+  @computed get availablePlayersLength() {
+    return _.filter(this.players, {isUsed: false}).length
+  }
 
   draw() {
     this.sendDraw()
+  }
+
+  endDraw() {
+    this.sendEndDraw()
   }
 
   // ----- request methods -----
@@ -130,6 +138,7 @@ class Game {
       console.log(game)
       this.stage = game.stage
       this.players = game.players
+      this.candidate = game.candidate
     }))
   }
   @Debounce(500)
@@ -141,6 +150,9 @@ class Game {
   }
   sendDraw() {
     request.post('/game/draw')
+  }
+  sendEndDraw() {
+    request.post('/game/end_draw')
   }
 
   sendStage(stage) {

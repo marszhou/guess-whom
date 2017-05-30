@@ -19,8 +19,40 @@ class AdminPage extends React.Component {
     this.game.sendStage(2)
   }
 
-  handleStage3 = () => {
+  drawPlayer = () => {
     this.game.draw()
+  }
+
+  endDrawPlayer = () => {
+    this.game.endDraw()
+  }
+
+  renderDrawButton() {
+    if (this.game.stage !== 2) {
+      return null
+    }
+
+    let ret = null
+    if (this.game.candidate) {
+      ret = (<button
+        type='button'
+        className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
+        onClick={this.endDrawPlayer}
+      >
+        结束当前抽取
+      </button>)
+    } else {
+      ret = (<button
+        type='button'
+        className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
+        disabled={!this.game.availablePlayersLength}
+        onClick={this.drawPlayer}
+      >
+        抽取（{this.game.availablePlayersLength}剩余）
+      </button>)
+    }
+
+    return ret
   }
 
   render() {
@@ -45,14 +77,7 @@ class AdminPage extends React.Component {
         start({this.game.surveyLength})
         </button>
 
-        <button
-          type='button'
-          className={cx({btn: true, "btn-block": true})}
-          disabled={true}
-          onClick={this.handleStage3}
-        >
-          抽取（n剩余）
-        </button>
+        { this.renderDrawButton() }
 
       </div>
     )
