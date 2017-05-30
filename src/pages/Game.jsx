@@ -58,13 +58,30 @@ class GamePage extends React.Component {
 .game-content td.cell div.player{
   width: ${this.contentWidth/size}px;
   height: ${this.contentHeight/size}px;
+  padding-left: 3px;
   overflow: hidden;
 }
-.game-content td.content div.main{
+.game-content td.content div.frame{
   width: ${this.contentWidth/size*(size-2)}px;
   height: ${this.contentHeight/size*(size-2)}px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
 }
+desc {
+  white-space: nowrap;
+}
+/*
+.game-content td.content div.frame div.main{
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+*/
+
 .game-content .content {
   border: 1px solid black;
 }

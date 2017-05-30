@@ -20,13 +20,17 @@ function insertRandomPlayer() {
     name: uniqId(),
     status: uniqId()
   })
+  player.answers = [
+    {period: '111', target: 'aaa'},
+    {period: '222', target: 'bbb'}
+  ]
   player.isConfirmed = true
   player.isSurvey = true
   game.addPlayer(player)
 }
 
 // -- stage 1
-let player = new Player({id: 'ee5fzqs737q', name: 'Matt', status: 'hi there😃'})
+let player = new Player({id: 'ee5fzqs737q', name: 'Matt', status: 'hi there, people😃'})
 player.setIsConfirmed(true)
 game.stage = 1
 game.addPlayer(player)
