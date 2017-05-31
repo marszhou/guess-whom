@@ -22,7 +22,7 @@ class GuessContentCell extends React.Component {
         <label style={{color: "#AAA"}}>请作答</label>
         <div>
           {
-            candidate.chosens.length+"/" + this.props.game.playersLength+'人已选择'
+            candidate.chosens.length + "/" + this.props.game.playersLength + '人已选择'
           }
         </div>
       </div>)

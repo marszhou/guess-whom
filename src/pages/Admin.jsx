@@ -39,7 +39,7 @@ class AdminPage extends React.Component {
         className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
         onClick={this.endDrawPlayer}
       >
-        结束当前抽取
+        结束当前抽取（{this.game.candidate.chosens.length + '/' + this.game.playersLength})
       </button>)
     } else {
       ret = (<button
