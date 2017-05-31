@@ -19,6 +19,10 @@ class AdminPage extends React.Component {
     this.game.sendStage(2)
   }
 
+  goStage3 = () => {
+    this.game.sendStage(3)
+  }
+
   drawPlayer = () => {
     this.game.draw()
   }
@@ -28,13 +32,15 @@ class AdminPage extends React.Component {
   }
 
   renderDrawButton() {
+    let disabled = false
     if (this.game.stage !== 2) {
-      return null
+      disabled = true
     }
 
     let ret = null
     if (this.game.candidate) {
       ret = (<button
+        key='endDraw'
         type='button'
         className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
         onClick={this.endDrawPlayer}
@@ -43,16 +49,35 @@ class AdminPage extends React.Component {
       </button>)
     } else {
       ret = (<button
+        key='draw'
         type='button'
         className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
-        disabled={!this.game.availablePlayersLength}
+        disabled={disabled || !this.game.availablePlayersLength}
         onClick={this.drawPlayer}
       >
         抽取（{this.game.availablePlayersLength}剩余）
       </button>)
     }
 
+    if (!this.game.candidate &&
+      this.game.availablePlayersLength === 0) {
+      ret = [ret]
+      ret.push(<button
+          type='button'
+          className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+          key='goStage3'
+          onClick={this.goStage3}
+          disabled={disabled && !!this.game.availablePlayersLength}
+        >查看结果</button>)
+    }
+
     return ret
+  }
+
+  renderResultButton() {
+    if (this.game.stage !== 3) {
+      return null
+    }
   }
 
   render() {
@@ -78,7 +103,7 @@ class AdminPage extends React.Component {
         </button>
 
         { this.renderDrawButton() }
-
+        { this.renderResultButton() }
       </div>
     )
   }
