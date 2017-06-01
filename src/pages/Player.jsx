@@ -38,8 +38,11 @@ class Player extends React.Component {
       case 3:
         content = (<PlayerStatus/>)
         break
-      default:
+      case 4:
         content = (<h1 style={{textAlign: 'center'}}>The end</h1>)
+        break
+      default:
+        content = null
         break
     }
     return (

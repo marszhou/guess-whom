@@ -2,7 +2,7 @@ import React from 'react'
 import {inject, observer} from 'mobx-react'
 import {computed} from 'mobx'
 import _ from 'lodash'
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
+import {BarChart, Bar, XAxis, YAxis} from 'recharts'
 
 
 @inject('game')

@@ -82,7 +82,7 @@ class PlayerGuess extends React.Component {
   }
 
   renderPending() {
-    return 'pending'
+    return <div className='loading'/>
   }
   render() {
     let {candidate} = this.props.game
