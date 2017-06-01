@@ -4,6 +4,8 @@ import {Provider, observer} from 'mobx-react'
 import PlayerInfo from 'components/PlayerInfo'
 import PlayerAnswer from 'components/PlayerAnswer'
 import PlayerGuess from 'components/PlayerGuess'
+import PlayerStatus from 'components/PlayerStatus'
+
 import GameStore from 'src/stores/Game'
 
 import Page from 'src/stores/Page'
@@ -28,11 +30,17 @@ class Player extends React.Component {
         content = (<PlayerAnswer/>)
         break
       case 2:
-        content = (<PlayerGuess/>)
+        content = [
+          (<PlayerStatus key='status'/>),
+          (<PlayerGuess key='guess'/>)
+        ]
         break
       case 3:
+        content = (<PlayerStatus/>)
+        break
       default:
-        content = null
+        content = (<h1 style={{textAlign: 'center'}}>The end</h1>)
+        break
     }
     return (
       <Provider game={game}>
