@@ -139,7 +139,7 @@ class Game {
     return _.filter(this.players, {isUsed: false}).length
   }
   @computed get undisposedPlayers() {
-    return _.filter(this.players, {isDisposed: false})
+    return _.filter(this.players, {isDisposed: false, isUsed: true})
   }
   @computed get undisposedPlayersLength() {
     return this.undisposedPlayers.length

@@ -31,7 +31,7 @@ class AdminPage extends React.Component {
     this.game.endDraw()
   }
 
-  drawResult() {
+  drawResult = () => {
     this.game.drawResult()
   }
 
@@ -113,12 +113,12 @@ class AdminPage extends React.Component {
     return (
       <button
         type='button'
-        className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+        className={cx({btn: true, 'btn-block': true, [disabled?'btn-default':'btn-primary']: true})}
         key='showResult'
         onClick={this.drawResult}
         disabled={disabled}
       >
-        抽取一个结果({this.game.undisposedPlayersLength})
+        抽取一个结果({this.game.undisposedPlayersLength}剩余)
       </button>
     )
   }
