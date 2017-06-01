@@ -9,6 +9,8 @@ import cx from 'classnames'
 
 import GuessPlayerCell from 'components/GuessPlayerCell'
 import GuessContentCell from 'components/GuessContentCell'
+import ResultPlayerCell from 'components/ResultPlayerCell'
+import ResultContentCell from 'components/ResultContentCell'
 
 @observer
 class GamePage extends React.Component {
@@ -191,20 +193,14 @@ desc {
       let player = cellIndex < this.game.playersLength? this.game.players[cellIndex] : null
       ++this._cellLoopIndex
 
-      let isDone = false
-      if (player && this.game.guessStatus) {
-        isDone = this.game.guessStatus.indexOf(player.id) > -1
-      }
-
       return (
         <td className={cx(classNames)} key={column} {...props}>
           {
             player ?
-              (<GuessPlayerCell
+              (<PlayerCell
                 width={this.contentWidth / size}
                 height={this.contentHeight / size}
                 player={player}
-                isDone={isDone}
               />) : '　'
           }
         </td>
@@ -217,7 +213,7 @@ desc {
           colSpan={size - 2}
           rowSpan={size - 2}
         >
-          <GuessContentCell
+          <ContentCell
             width={this.contentWidth / size * (size - 2)}
             height={this.contentHeight / size * (size - 2)}
             candidate={this.game.candidate}
@@ -239,6 +235,13 @@ desc {
   }
 
   renderResult() {
+    let size = this.game.calculateGameLayoutSize()
+    return (
+      <div>
+        {this.renderCalculatedCss()}
+        {this.renderTable(size, ResultPlayerCell, ResultContentCell)}
+      </div>
+    )
   }
 
   renderEnd() {
