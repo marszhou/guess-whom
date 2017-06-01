@@ -216,7 +216,7 @@ class Game {
   }
 
   @computed get guessStatus() {
-    if (!this.candidate) return null
+    if (!this.candidate) return []
     return this.candidate.chosens.map(({playerId}) => {
       return playerId
     })
