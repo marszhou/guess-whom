@@ -135,7 +135,7 @@ class AdminPage extends React.Component {
             type='button'
             key='endGame'
             disabled={disabled}
-            className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+            className={cx({btn: true, 'btn-block': true, [disabled?'btn-default':'btn-primary']: true})}
             onClick={this.goStage4}
           >
             结束游戏
