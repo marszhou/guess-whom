@@ -186,6 +186,22 @@ app.post('/game/candidate/:candidateId/player/:playerId/choice/:choiceId', funct
   })
 })
 
+app.post('/game/drawResult', function(req, res) {
+  let ret = game.drawResult()
+  broadcastGame()
+  res.json({
+    result: ret
+  })
+})
+
+app.post('/game/endDrawResult', function(req, res) {
+  let ret = game.endDrawResult()
+  broadcastGame()
+  res.json({
+    result: ret
+  })
+})
+
 // --
 
 function broadcast(event, ...channels) {

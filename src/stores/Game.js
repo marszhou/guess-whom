@@ -138,6 +138,12 @@ class Game {
   @computed get availablePlayersLength() {
     return _.filter(this.players, {isUsed: false}).length
   }
+  @computed get undisposedPlayers() {
+    return _.filter(this.players, {isDisposed: false})
+  }
+  @computed get undisposedPlayersLength() {
+    return this.undisposedPlayers.length
+  }
 
   draw() {
     this.sendDraw()
@@ -145,6 +151,10 @@ class Game {
 
   endDraw() {
     this.sendEndDraw()
+  }
+
+  drawResult() {
+    this.sendDrawResult()
   }
 
   // ----- request methods -----
@@ -164,6 +174,7 @@ class Game {
       this.players = game.players
       this.candidate = game.candidate
       this.candidates = game.candidates
+      this.result = game.result
       if (this.player) {
         this.player.setData(game.player)
       }
@@ -209,6 +220,10 @@ class Game {
     return this.candidate.chosens.map(({playerId}) => {
       return playerId
     })
+  }
+
+  sendDrawResult() {
+    request.post('/game/drawResult')
   }
 }
 module.exports = Game

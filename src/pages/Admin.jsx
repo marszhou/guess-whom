@@ -31,6 +31,36 @@ class AdminPage extends React.Component {
     this.game.endDraw()
   }
 
+  drawResult() {
+    this.game.drawResult()
+  }
+
+  renderStage0Btn() {
+    return (
+      <button
+        type='button'
+        className={cx({btn: true, [this.game.stage0Ready ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
+        disabled={!this.game.stage0Ready}
+        onClick={this.goStage1}
+      >
+      confirm({this.game.confirmedLength})
+      </button>
+    )
+  }
+
+  renderStage1Btn() {
+    return (
+      <button
+        type='button'
+        className={cx({btn: true, [this.game.stage1Ready ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
+        disabled={!this.game.stage1Ready}
+        onClick={this.goStage2}
+      >
+      start({this.game.surveyLength})
+      </button>
+    )
+  }
+
   renderDrawButton() {
     let disabled = false
     if (this.game.stage !== 2) {
@@ -42,7 +72,7 @@ class AdminPage extends React.Component {
       ret = (<button
         key='endDraw'
         type='button'
-        className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
+        className={cx({btn: true, "btn-block": true, [disabled?'btn-default':'btn-primary']: true})}
         onClick={this.endDrawPlayer}
       >
         结束当前抽取（{this.game.candidate.chosens.length + '/' + this.game.playersLength})
@@ -51,7 +81,7 @@ class AdminPage extends React.Component {
       ret = (<button
         key='draw'
         type='button'
-        className={cx({btn: true, "btn-block": true, 'btn-primary': true})}
+        className={cx({btn: true, "btn-block": true, [disabled?'btn-default':'btn-primary']: true})}
         disabled={disabled || !this.game.availablePlayersLength}
         onClick={this.drawPlayer}
       >
@@ -64,10 +94,10 @@ class AdminPage extends React.Component {
       ret = [ret]
       ret.push(<button
           type='button'
-          className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+          className={cx({btn: true, 'btn-block': true, [disabled?'btn-default':'btn-primary']: true})}
           key='goStage3'
           onClick={this.goStage3}
-          disabled={disabled && !!this.game.availablePlayersLength}
+          disabled={disabled && !this.game.availablePlayersLength}
         >查看结果</button>)
     }
 
@@ -75,33 +105,30 @@ class AdminPage extends React.Component {
   }
 
   renderResultButton() {
+    let disabled = false
     if (this.game.stage !== 3) {
-      return null
+      disabled = true
     }
+
+    return (
+      <button
+        type='button'
+        className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+        key='showResult'
+        onClick={this.drawResult}
+        disabled={disabled}
+      >
+        抽取一个结果({this.game.undisposedPlayersLength})
+      </button>
+    )
   }
 
   render() {
     return (
       <div>
         <div>当前状态: {this.game.stage}, 人数: {this.game.playersLength}</div>
-        <button
-          type='button'
-          className={cx({btn: true, [this.game.stage0Ready ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
-          disabled={!this.game.stage0Ready}
-          onClick={this.goStage1}
-        >
-        confirm({this.game.confirmedLength})
-        </button>
-
-        <button
-          type='button'
-          className={cx({btn: true, [this.game.stage1Ready ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
-          disabled={!this.game.stage1Ready}
-          onClick={this.goStage2}
-        >
-        start({this.game.surveyLength})
-        </button>
-
+        { this.renderStage0Btn() }
+        { this.renderStage1Btn() }
         { this.renderDrawButton() }
         { this.renderResultButton() }
       </div>

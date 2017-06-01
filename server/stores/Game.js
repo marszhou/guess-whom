@@ -19,7 +19,9 @@ class Game {
 
   init() {
     this.players = []
+    this.candidate = null
     this.candidates = []
+    this.result = null
     this.stage = STAGE.info
   }
 
@@ -92,6 +94,30 @@ class Game {
       if (this.candidate) {
         this.candidates.push(this.candidate.id)
         this.candidate = null
+        return true
+      }
+    }
+    return false
+  }
+
+  drawResult() {
+    if (this.stage === STAGE.result) {
+      if (!this.result) {
+        let result = _.sample(_.filter(this.players, {isDisposed: false}))
+        if (result) {
+          result.isDisposed = true
+          this.result = result
+          return true
+        }
+      }
+    }
+    return false
+  }
+
+  endDrawResult() {
+    if (this.stage === STAGE.result) {
+      if (this.result) {
+        this.result = null
         return true
       }
     }

@@ -74,14 +74,6 @@ class GamePage extends React.Component {
 desc {
   white-space: nowrap;
 }
-/*
-.game-content td.content div.frame div.main{
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-}
-*/
-
 .game-content .content {
   border: 1px solid black;
 }
@@ -97,7 +89,6 @@ desc {
 .game-content td.cell.right {
   border-bottom: 1px solid black;
 }
-
 .game-content tr.bottom td.cell.left,
 .game-content tr.bottom td.cell.right {
   border-bottom: 0;
