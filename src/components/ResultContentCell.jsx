@@ -1,5 +1,9 @@
 import React from 'react'
 import {inject, observer} from 'mobx-react'
+import {computed} from 'mobx'
+import _ from 'lodash'
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
+
 
 @inject('game')
 @observer
@@ -8,27 +12,55 @@ class ResultContentCell extends React.Component {
     return (
       <div className='frame'>
         {
-          this.props.game.showResult ? (result.name) : (<button type='button' className='btn btn-default' onClick={() => this.props.game.setShowResult(true)}>他/她是谁？</button>)
+          this.props.game.showResult ? ("🙉 " + result.name + " 🙉") : (<button type='button' className='btn btn-default btn-lg' onClick={() => this.props.game.setShowResult(true)}>🙈 他/她是谁? 🙈</button>)
         }
 
         <div className='main'>
-          <ul>
+          <div>
             {
               result.answers.map(({period, target}) => {
                 return (
-                  <li key={period}>🕐 {period} 👤 {target}</li>
+                  <div key={period}>🕐 {period} 👤 {target}</div>
                 )
               })
             }
-          </ul>
-        </div>
-        <label style={{color: "#AAA"}}>请作答</label>
-        <div>
+          </div>
           {
-            result.chosens.length + "/" + this.props.game.playersLength + '人已选择'
+            this.renderChosenStatics()
           }
         </div>
       </div>
+    )
+  }
+
+  @computed get chosenStatics() {
+    const game = this.props.game
+    let statics = _.reduce(game.result.chosens, (ret, c) => {
+      let player = game.getPlayerById(c.choiceId)
+      if (player && ret[player.name]) {
+        ret[player.name] += 1
+      } else {
+        ret[player.name] = 1
+      }
+      return ret
+    }, {})
+    return _.map(_.keys(statics), name => ({name, score: statics[name]}))
+  }
+
+  renderChosenStatics() {
+    let statics = this.chosenStatics
+    return (
+      <BarChart
+        width={400}
+        height={100}
+        layout='vertical'
+        data={statics}
+        margin={{right: 0, left: 50}}
+        >
+        <Bar dataKey='score' fill='#8884d8'/>
+        <XAxis type='number' allowDecimals={false} axisLine={false} tickLine={false} tick={false}/>
+        <YAxis dataKey="name" type='category' mirror={false} interval={0}/>
+      </BarChart>
     )
   }
 

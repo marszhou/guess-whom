@@ -7,10 +7,9 @@ import {inject, observer} from 'mobx-react'
 class GuessContentCell extends React.Component {
   renderCandidate(candidate) {
     return (<div className='frame'>
-        <img src="static/assets/no-avatar.jpg"
-            alt="no avatar" style={{width: 100, height: 100, margin: 5}}/>
 
         <div className='main'>
+          <h4>🙈 他/她是谁? 🙈</h4>
           <ul>
             {
               candidate.answers.map(({period, target}) => {

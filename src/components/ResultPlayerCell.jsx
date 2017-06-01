@@ -20,7 +20,11 @@ class ResultPlayerCell extends React.Component {
   }
 
   @computed get myGuessCorrect() {
-    return true
+    if (!this.myGuess) {
+      return false
+    } else {
+      return this.myGuess.id === this.props.game.result.id
+    }
   }
 
   renderGuess() {
@@ -29,7 +33,7 @@ class ResultPlayerCell extends React.Component {
       return null
     }
     return (
-      <guess>
+      <guess className={game.showResult ? (this.myGuessCorrect ? 'correct︎':'') : ''}>
         {this.myGuess ? this.myGuess.name : '(未选择)'}
         {game.showResult ? (this.myGuessCorrect ? '✔︎':'') : ''}
       </guess>
@@ -40,7 +44,7 @@ class ResultPlayerCell extends React.Component {
     let {player} = this.props
     return (
       <div className='player' style={{}}>
-        <h4>{player.name}</h4>
+        <name>{player.name}</name>
         <desc>{player.status}</desc>
         {this.renderGuess()}
       </div>

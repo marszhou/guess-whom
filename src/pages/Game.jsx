@@ -12,6 +12,8 @@ import GuessContentCell from 'components/GuessContentCell'
 import ResultPlayerCell from 'components/ResultPlayerCell'
 import ResultContentCell from 'components/ResultContentCell'
 
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
+
 @observer
 class GamePage extends React.Component {
   _cellLoopIndex = 0
@@ -73,8 +75,8 @@ class GamePage extends React.Component {
   align-content: center;
   flex-direction: column;
 }
-desc {
-  white-space: nowrap;
+.game-content td.content div.frame div.main{
+  text-align: center;
 }
 .game-content .content {
   border: 1px solid black;
@@ -244,7 +246,22 @@ desc {
   }
 
   renderEnd() {
-
+    let scores = this.game.scores
+    return (
+      <BarChart
+        width={this.contentWidth}
+        height={this.contentHeight}
+        data={scores}
+        layout='vertical'
+        >
+        <Tooltip/>
+        <Bar dataKey='score' fill='#8884d8'/>
+        <XAxis type='number' allowDecimals={false}/>
+        <YAxis dataKey="name" type='category'/>
+        <CartesianGrid strokeDasharray="3 3"/>
+        <Legend />
+      </BarChart>
+    )
   }
 
   render() {

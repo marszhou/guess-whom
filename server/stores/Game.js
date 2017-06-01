@@ -102,13 +102,11 @@ class Game {
 
   drawResult() {
     if (this.stage === STAGE.result) {
-      if (!this.result) {
-        let result = _.sample(_.filter(this.players, {isDisposed: false}))
-        if (result) {
-          result.isDisposed = true
-          this.result = result
-          return true
-        }
+      let result = _.sample(_.filter(this.players, {isDisposed: false}))
+      if (result) {
+        result.isDisposed = true
+        this.result = result
+        return true
       }
     }
     return false

@@ -243,5 +243,12 @@ class Game {
   sendDrawResult() {
     request.post('/game/drawResult')
   }
+
+  @computed get scores() {
+    return this.players.map(player => {
+      let score = player.choices.filter(c => c.candidateId === c.choiceId).length
+      return {name: player.name, score}
+    })
+  }
 }
 module.exports = Game

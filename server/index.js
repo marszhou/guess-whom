@@ -31,15 +31,15 @@ function insertRandomPlayer() {
 
 // testing data
 // -- stage 1
-let player = new Player({id: 'bnd545fju55', name: 'Matt', status: 'hi there, people😃'})
-player.isConfirmed = true
-player.isSurvey = true
-player.answers = [
-  {period: '1', target: 'hello'},
-  {period: '2', target: 'world'},
-]
-game.stage = 2
-game.addPlayer(player)
+// let player = new Player({id: 'bnd545fju55', name: 'Matt', status: 'hi there, people😃'})
+// player.isConfirmed = true
+// player.isSurvey = true
+// player.answers = [
+//   {period: '1', target: 'hello'},
+//   {period: '2', target: 'world'},
+// ]
+// game.stage = 2
+// game.addPlayer(player)
 // -- stage 2
 // player.setAnswers([{period: 'a', target: 'x'}, {period: 'b', target: 'y'}])
 // player.isSurvey = true
