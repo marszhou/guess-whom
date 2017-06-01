@@ -47,3 +47,11 @@ body {
 .game {
   font-size: 20px;
 }
+
+.loading {
+    background-color: skyblue;
+    width: 100px;
+    height: 100px;
+    -webkit-mask: url(/static/assets/svg/loading-bars.svg) no-repeat center/cover;
+    mask: url(/static/assets/svg/loading-bars.svgg) no-repeat center/cover;
+}

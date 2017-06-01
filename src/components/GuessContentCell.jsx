@@ -1,5 +1,5 @@
 import React from 'react'
-import {computed} from 'mobx'
+// import {computed} from 'mobx'
 import {inject, observer} from 'mobx-react'
 
 @inject('game')
@@ -29,7 +29,7 @@ class GuessContentCell extends React.Component {
   }
 
   renderPending() {
-    return (<div className='frame'><div>pending</div></div>)
+    return (<div className='frame'><div className='loading'/></div>)
   }
 
   render() {
