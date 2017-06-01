@@ -23,6 +23,10 @@ class AdminPage extends React.Component {
     this.game.sendStage(3)
   }
 
+  goStage4 = () => {
+    this.game.sendStage(4)
+  }
+
   drawPlayer = () => {
     this.game.draw()
   }
@@ -110,17 +114,38 @@ class AdminPage extends React.Component {
       disabled = true
     }
 
-    return (
+    let ret = null
+    let nextBtn = (
       <button
         type='button'
         className={cx({btn: true, 'btn-block': true, [disabled?'btn-default':'btn-primary']: true})}
         key='showResult'
         onClick={this.drawResult}
-        disabled={disabled}
+        disabled={disabled || this.game.undisposedPlayersLength === 0}
       >
         抽取一个结果({this.game.undisposedPlayersLength}剩余)
       </button>
     )
+
+    if (this.game.undisposedPlayersLength === 0) {
+      ret = [
+        nextBtn,
+        (
+          <button
+            type='button'
+            key='endGame'
+            disabled={disabled}
+            className={cx({btn: true, 'btn-block': true, 'btn-primary': true})}
+            onClick={this.goStage4}
+          >
+            结束游戏
+          </button>)
+      ]
+    } else {
+      ret = nextBtn
+    }
+
+    return ret
   }
 
   render() {
