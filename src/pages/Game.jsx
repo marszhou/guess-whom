@@ -216,7 +216,6 @@ desc {
           <ContentCell
             width={this.contentWidth / size * (size - 2)}
             height={this.contentHeight / size * (size - 2)}
-            candidate={this.game.candidate}
           />
         </td>
       )

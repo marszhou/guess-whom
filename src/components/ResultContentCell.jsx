@@ -4,16 +4,20 @@ import {inject, observer} from 'mobx-react'
 @inject('game')
 @observer
 class ResultContentCell extends React.Component {
-  renderCandidate(candidate) {
-    return (<div className='frame'>
-        <img src="static/assets/no-avatar.jpg"
-            alt="no avatar" style={{width: 100, height: 100, margin: 5}}/>
+  renderResult(result) {
+    return (
+      <div className='frame'>
+        {
+          this.props.game.showResult ? (result.name) : (<button type='button' className='btn btn-default' onClick={() => this.props.game.setShowResult(true)}>他/她是谁？</button>)
+        }
 
         <div className='main'>
           <ul>
             {
-              candidate.answers.map(({period, target}) => {
-                return (<li key={period}>🕐 {period} 👤 {target}</li>)
+              result.answers.map(({period, target}) => {
+                return (
+                  <li key={period}>🕐 {period} 👤 {target}</li>
+                )
               })
             }
           </ul>
@@ -21,10 +25,11 @@ class ResultContentCell extends React.Component {
         <label style={{color: "#AAA"}}>请作答</label>
         <div>
           {
-            candidate.chosens.length + "/" + this.props.game.playersLength + '人已选择'
+            result.chosens.length + "/" + this.props.game.playersLength + '人已选择'
           }
         </div>
-      </div>)
+      </div>
+    )
   }
 
   renderPending() {
@@ -32,10 +37,10 @@ class ResultContentCell extends React.Component {
   }
 
   render() {
-    let {candidate} = this.props
+    let {result} = this.props.game
 
-    return candidate ? this.renderCandidate(candidate) :
-                       this.renderPending()
+    return result ? this.renderResult(result) :
+                    this.renderPending()
   }
 }
 

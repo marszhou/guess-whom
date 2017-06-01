@@ -33,7 +33,7 @@ class GuessContentCell extends React.Component {
   }
 
   render() {
-    let {candidate} = this.props
+    let {candidate} = this.props.game
 
     return candidate ? this.renderCandidate(candidate) :
                        this.renderPending()

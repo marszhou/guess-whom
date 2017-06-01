@@ -16,7 +16,9 @@ class Game {
       stage: -1,
       players: [],
       candidate: null,
-      candidates: []
+      candidates: [],
+      result: null,
+      showResult: false
     })
     if (role === 'player') {
       this.player = new PlayerStore(socket)
@@ -101,6 +103,10 @@ class Game {
     }
   }
 
+  getPlayerById(playerId) {
+    return _.find(this.players, {id: playerId})
+  }
+
   @action
   addUser(user) {
     this.users.push(user)
@@ -174,6 +180,13 @@ class Game {
       this.players = game.players
       this.candidate = game.candidate
       this.candidates = game.candidates
+      if (this.result !== null &&
+        game.result !== null &&
+        this.result.id !== game.result.id) {
+        this.showResult = false
+      } else if (this.result === null || game.result === null) {
+        this.showResult = false
+      }
       this.result = game.result
       if (this.player) {
         this.player.setData(game.player)
@@ -196,6 +209,11 @@ class Game {
 
   sendStage(stage) {
     request.post('/game/stage/'+stage)
+  }
+
+  @action
+  setShowResult(b) {
+    this.showResult = b
   }
 
   @action
