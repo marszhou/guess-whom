@@ -185,7 +185,11 @@ class Game {
   }
   @Debounce(500)
   fetchGame() {
-    request.get('/game')
+    let url = '/game'
+    if (this.player) {
+      url += '/' + this.player.id
+    }
+    request.get(url)
     .then(action(({game}) => {
       console.log(game)
       this.stage = game.stage
@@ -201,6 +205,7 @@ class Game {
       }
       this.result = game.result
       if (this.player) {
+        console.log(game.player)
         this.player.setData(game.player)
       }
     }))

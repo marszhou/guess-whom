@@ -72,6 +72,19 @@ app.get('/game', function(req, res) {
   })
 })
 
+app.get('/game/:playerId', function(req, res) {
+  let gameCopy = JSON.parse(JSON.stringify(game))
+  gameCopy.player = _.find(game.players, {id: req.params.playerId}) || new Player({
+                    id: req.params.playerId,
+                    name: '',
+                    status: ''
+                  })
+  res.json({
+    result: true,
+    game: gameCopy
+  })
+})
+
 //
 app.post('/game/init', function(req, res) {
   logger.info('Game Init')

@@ -10,9 +10,9 @@ class Player {
     this.isDisposed = false   // 是否被结果
     this.isConfirmed = false
     this.isSurvey = false
-    this.name = info.name
-    this.status = info.status
-    this.answers = info.answers
+    this.name = info.name || ''
+    this.status = info.status || ''
+    this.answers = info.answers || []
     this.choices = []         // 当前选手的选择
     this.chosens = []         // 当前选手被选的结果
   }
