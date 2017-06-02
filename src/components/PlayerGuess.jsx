@@ -59,7 +59,7 @@ class PlayerGuess extends React.Component {
               {
                 players.map(player => {
                   return (
-                  <div className="radio" key={player.id}>
+                  <div className="radio" key={player.id} style={{fontSize: 16, minHeight: 36}}>
                     <label>
                       <input
                         type="radio"

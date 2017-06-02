@@ -35,7 +35,7 @@ export default inject('game')(observer(function({game}) {
   overflow: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   align-content: center;
   flex-direction: column;
 }

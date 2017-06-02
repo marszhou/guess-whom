@@ -10,21 +10,18 @@ import {BarChart, Bar, XAxis, YAxis} from 'recharts'
 class ResultContentCell extends React.Component {
   renderResult(result) {
     return (
-      <div className='frame'>
-        {
-          this.props.game.showResult ? ("🙉 " + result.name + " 🙉") : (<button type='button' className='btn btn-default btn-lg' onClick={() => this.props.game.setShowResult(true)}>🙈 他/她是谁? 🙈</button>)
-        }
+      <div className='frame  default-primary-color'>
 
-        <div className='main'>
-          <div>
-            {
-              result.answers.map(({period, target}) => {
-                return (
-                  <div key={period}>🕐 {period} 👤 {target}</div>
-                )
-              })
-            }
-          </div>
+
+        <div className='main  content-cell'>
+          {
+            this.props.game.showResult ? (<div className='result'>{result.name}</div>) : (<div className='question' onClick={() => this.props.game.setShowResult(true)}>他/她是谁?</div>)
+          }
+          {
+            result.answers.map(({period, target}) => {
+              return (<div className='option' key={period}><span className='period'>{period}</span> <span className='target'>{target}</span></div>)
+            })
+          }
           {
             this.renderChosenStatics()
           }
@@ -49,23 +46,28 @@ class ResultContentCell extends React.Component {
 
   renderChosenStatics() {
     let statics = this.chosenStatics
+    // let statics = []
+    // _.range(10).forEach(i => {
+    //   statics[i] = {name: i+'', score: Math.random() * 100}
+    // })
+    let {result} = this.props.game
     return (
       <BarChart
-        width={400}
-        height={100}
+        width={this.props.width}
+        height={this.props.height - (45 * (result.answers.length + 1))}
         layout='vertical'
         data={statics}
-        margin={{right: 0, left: 50}}
+        margin={{right: 10, left: 10}}
         >
         <Bar dataKey='score' fill='#8884d8'/>
-        <XAxis type='number' allowDecimals={false} axisLine={false} tickLine={false} tick={false}/>
+        <XAxis type='number' hide={true}/>
         <YAxis dataKey="name" type='category' mirror={false} interval={0}/>
       </BarChart>
     )
   }
 
   renderPending() {
-    return (<div className='frame'><div className='loading'/></div>)
+    return (<div className='frame' style={{alignItems: "center"}}><div className='loading'/></div>)
   }
 
   render() {

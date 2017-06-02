@@ -24,6 +24,9 @@ class Player extends React.Component {
     let content = null
 
     switch (stage) {
+      case -1:
+        content = (<h1 style={{textAlign: 'center'}}><img src='/static/assets/9f5dd385ly1fdllaakzx4g206j06jx6p.gif' alt='wait'/></h1>)
+        break
       case 0:
         content = (<PlayerInfo/>)
         break
@@ -40,7 +43,7 @@ class Player extends React.Component {
         content = (<PlayerStatus/>)
         break
       case 4:
-        content = (<h1 style={{textAlign: 'center'}}>The end</h1>)
+        content = (<h1 style={{textAlign: 'center'}}>The End<br/><img src='/static/assets/IMG_4227.JPG' className='img-responsive' alt='the end'/></h1>)
         break
       default:
         content = null

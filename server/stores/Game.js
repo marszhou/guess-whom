@@ -5,6 +5,7 @@ const Round = require('./Round')
 
 // stage 是传送给客户端，用于客户端决定显示什么游戏界面的
 const STAGE = {
+  prepare: -1,
   info: 0,
   survey: 1,
   guess: 2,
@@ -22,7 +23,7 @@ class Game {
     this.candidate = null
     this.candidates = []
     this.result = null
-    this.stage = STAGE.info
+    this.stage = STAGE.prepare
   }
 
   addPlayer(player) {

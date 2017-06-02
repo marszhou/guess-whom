@@ -131,7 +131,7 @@ class GamePage extends React.Component {
       return (
         <td
           key="content"
-          className="content"
+          className="content theme-grey"
           colSpan={size - 2}
           rowSpan={size - 2}
         >
@@ -184,7 +184,9 @@ class GamePage extends React.Component {
 
   render() {
     let content = null
-    if (this.game.stage === 0 || this.game.stage === 1) {
+    if (this.game.stage === -1) {
+      content = (<h1 style={{textAlign: 'center'}}><img src='/static/assets/6aaeb4b8gw1f9u6i74rfkg207f0cv4qz.gif' alt='wait'/></h1>)
+    } else if (this.game.stage === 0 || this.game.stage === 1) {
       content = this.renderPrepareScene()
     } else if (this.game.stage === 2) {
       content = this.renderGuess()

@@ -1,5 +1,5 @@
 import './App.css'
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 import React from 'react'
@@ -24,7 +24,7 @@ const App = () => {
           <nav className="navbar navbar-default navbar-fixed-top navbar-inverse">
             <div className="container-fluid">
               <div className="navbar-header">
-                <a className="navbar-brand" href="#"><div className="emoji">⁉️</div> Guess Whom</a>
+                <a className="navbar-brand" href="#"><div className="emoji">⁉️</div> I Guess</a>
               </div>
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 

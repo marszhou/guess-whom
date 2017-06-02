@@ -11,6 +11,10 @@ class AdminPage extends React.Component {
     this.game = new GameStore('admin')
   }
 
+  goStage0 = () => {
+    this.game.sendStage(0)
+  }
+
   goStage1 = () => {
     this.game.sendStage(1)
   }
@@ -37,6 +41,19 @@ class AdminPage extends React.Component {
 
   drawResult = () => {
     this.game.drawResult()
+  }
+
+  renderStartBtn() {
+    return (
+      <button
+        type='button'
+        className={cx({btn: true, [this.game.stage === -1 ? "btn-primary" : "btn-default"]: true, "btn-block": true})}
+        disabled={this.game.stage !== -1}
+        onClick={this.goStage0}
+      >
+      开始
+      </button>
+    )
   }
 
   renderStage0Btn() {
@@ -148,14 +165,40 @@ class AdminPage extends React.Component {
     return ret
   }
 
+  renderResult() {
+    return (<ul>
+      {
+        this.game.players.map(player => {
+          return (
+            <li key={player.id}>
+              {player.name}
+              <ul>
+
+                {
+                  player.answers.map((answer, index) => {
+                    return (<li key={index}>{answer.period}:{answer.target}</li>)
+                  })
+                }
+              </ul>
+            </li>
+
+          )
+        })
+      }
+
+    </ul>)
+  }
+
   render() {
     return (
       <div>
         <div>当前状态: {this.game.stage}, 人数: {this.game.playersLength}</div>
+        { this.renderStartBtn()}
         { this.renderStage0Btn() }
         { this.renderStage1Btn() }
         { this.renderDrawButton() }
         { this.renderResultButton() }
+        { this.renderResult() }
       </div>
     )
   }

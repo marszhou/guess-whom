@@ -24,7 +24,7 @@ class GuessPlayerCell extends React.Component {
         {
           player.status ? (
             <desc className='text-primary-color fade-transition default-primary-color'>
-              {player.status}
+              {player.status.substring(0,20)}
             </desc>) : null
         }
 

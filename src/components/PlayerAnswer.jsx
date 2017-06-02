@@ -19,6 +19,7 @@ class PlayerAnswer extends React.Component{
   }
 
   componentWillUnmount() {
+    console.log('answers unmount')
     Page.popTitle()
   }
 
@@ -136,18 +137,20 @@ class PlayerAnswer extends React.Component{
           {
             player.answers.map(this.renderItem)
           }
-
-          <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <button
-                type="button"
-                className="btn btn-success btn-block"
-                onClick={this.handleAddItem}
-              >
-                添加选项
-              </button>
-            </div>
-          </div>
+          {
+            (player.answers.length>=3) ? null : (<div className="form-group">
+              <div className="col-sm-offset-2 col-sm-10">
+                <button
+                  type="button"
+                  className="btn btn-success btn-block"
+                  onClick={this.handleAddItem}
+                  disabled={player.isSurvey}
+                >
+                  添加选项
+                </button>
+              </div>
+            </div>)
+          }
 
           { this.renderFormCheckError() }
 

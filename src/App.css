@@ -55,6 +55,61 @@ body {
     -webkit-mask: url(/static/assets/svg/loading-bars.svg) no-repeat center/cover;
     mask: url(/static/assets/svg/loading-bars.svgg) no-repeat center/cover;
 }
+.content-cell .question,
+.content-cell .result,
+.content-cell .option,
+.content-cell .progressing{
+  display: block;
+  /*border-radius: 16px;*/
+  margin: 6px 2px 0 2px;
+  padding: 6px 0;
+  /*box-shadow: 1px 1px 2px #333;*/
+  font-size: 14px;
+  background: #EEE;
+
+
+  color: white;
+}
+
+.content-cell .question, .content-cell .result{
+  background: #d22f2f;
+  font-size: 18px;
+}
+.content-cell .result:before{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .result:after{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .question:before{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .question:after{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .option {
+  background: #1975d1;
+}
+.content-cell .option .period:before{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .option .target:before{
+  content: ' ';
+  font-family: FontAwesome;
+}
+.content-cell .progressing {
+  background: #7a1fa1;
+}
+.content-cell .progressing:before {
+  content: ' ';
+  font-family: FontAwesome;
+}
+
 .player{
   display: flex;
   flex-direction: column;

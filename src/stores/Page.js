@@ -4,8 +4,10 @@ let Page = {
   titles: [],
 
   pushTitle(title) {
-    this.titles.unshift(title)
-    this.renderTitle()
+    _.delay(() => {
+      this.titles.unshift(title)
+      this.renderTitle()
+    })
   },
 
   popTitle(title) {
