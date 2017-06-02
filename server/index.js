@@ -122,14 +122,17 @@ app.get('/player/:playerId', function(req, res) {
 // add or update player info
 app.post('/player/:playerId', function(req, res) {
   let info = req.body
+
   if (game.playerExists(info.id)) { // update
     logger.info('Update player')
     game.updatePlayer(info)
   } else {
-    logger.info('Add player')
-    let player = new Player(info)   // add
-    game.addPlayer(player)
-    logger.info('Current players count = ' + game.getPlayersCount())
+    if (game.stage === 0) {
+      logger.info('Add player')
+      let player = new Player(info)   // add
+      game.addPlayer(player)
+      logger.info('Current players count = ' + game.getPlayersCount())
+    }
   }
   broadcastUserList()
   res.json({

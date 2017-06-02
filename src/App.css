@@ -107,6 +107,11 @@ sign {
   border-radius: 30px!important;
 }
 
+.fade-transition {
+  transition: background 2s ease;
+  /*transition: color 2s ease;*/
+}
+
 /* theme */
 
 .theme-pink .dark-primary-color    { background: #C2185B; }
@@ -279,3 +284,16 @@ sign {
 .theme-blue-grey .primary-text-color    { color: #212121; }
 .theme-blue-grey .secondary-text-color  { color: #757575; }
 .theme-blue-grey .divider-color         { border-color: #BDBDBD; }
+
+.theme-selector-frame {
+  display: flex;
+  flex-wrap: wrap;
+}
+.theme-selector-frame div.box{
+  width: 30px;
+  height: 30px;
+}
+.theme-selector-frame div.box .box-item {
+  width: 100%;
+  height: 100%;
+}

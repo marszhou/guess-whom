@@ -9,7 +9,6 @@ ReactDOM.render(
   (
     <div>
       <App />
-      <DevTools/>
     </div>),
   document.getElementById('root')
 );

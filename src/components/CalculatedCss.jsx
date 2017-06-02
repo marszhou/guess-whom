@@ -63,7 +63,6 @@ export default inject('game')(observer(function({game}) {
 }
 
 .loading-frame {
-  min-height: ${game.contentHeight - 72}px;
   display: flex;
   align-items: center;
   justify-content: center;

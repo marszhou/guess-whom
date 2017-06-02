@@ -16,6 +16,7 @@ class Player {
     this.isEditing = v
   }
   @observable id = null
+  @observable theme = 'default'
   @observable name = ''
   @observable status = ''
   score = 0
@@ -116,7 +117,7 @@ class Player {
   }
 
   getPlayerInfo() {
-    return _.pick(this, 'id', 'name', 'status', 'answers')
+    return _.pick(this, 'id', 'name', 'status', 'answers', 'theme')
   }
 
   @action

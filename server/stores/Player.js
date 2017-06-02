@@ -6,6 +6,7 @@ const _ = require('lodash')
 class Player {
   constructor(info) {
     this.id = info.id
+    this.theme = info.theme || 'default'
     this.isUsed = false       // 是否被抽取
     this.isDisposed = false   // 是否被结果
     this.isConfirmed = false
@@ -18,9 +19,10 @@ class Player {
   }
 
   update(info) {
-    const {name, status} = info
+    const {name, status, theme} = info
     this.name = name
     this.status = status
+    this.theme = theme || 'default'
   }
 
   setAnswers(answers) {

@@ -33,22 +33,27 @@ class ResultPlayerCell extends React.Component {
       return null
     }
     return (
-      <guess className={'primary-text-color' + (game.showResult ? (this.myGuessCorrect ? 'correct︎':'') : '')}>
+      <guess className={'primary-text-color fade-transition' + (game.showResult ? (this.myGuessCorrect ? ' correct':'') : '')}>
         {this.myGuess ? this.myGuess.name : '(未选择)'}
-        {game.showResult ? (this.myGuessCorrect ? '✔︎':'') : ''}
       </guess>
     )
   }
 
   render() {
     let {player} = this.props
-    return (
-      <div className='player' style={{}}>
-        <name>{player.name}</name>
-        <desc>{player.status}</desc>
+    return (<div className={'theme-' + player.theme}>
+      <div className='player fade-transition light-primary-color' style={{}}>
+        <name className='text-primary-color fade-transition accent-color'>{player.name}</name>
+        {
+          player.status ? (
+            <desc className='text-primary-color fade-transition default-primary-color'>
+              {player.status}
+            </desc>) : null
+        }
+
         {this.renderGuess()}
       </div>
-    )
+    </div>)
   }
 }
 
