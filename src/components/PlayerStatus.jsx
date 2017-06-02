@@ -26,8 +26,9 @@ class PlayerStatus extends React.Component {
 
   renderThemeSelector() {
     let themes = ['pink', 'red', 'purple', 'deep-purple', 'indego', 'blue', 'light-blue', 'cyan', 'teal', 'green', 'light-green', 'lime', 'yellow', 'amber', 'orange', 'deep-orange', 'brown', 'grey', 'blue-grey']
+    let {player} = this.props.game
     return themes.map(theme => (
-      <div className={'theme-'+theme + ' box'} key={theme}>
+      <div className={'theme-'+theme + ' box' + (player.theme === theme ? ' highlight' : '')} key={theme}>
         <div className='default-primary-color box-item' onClick={_.partial(this.handleThemeChange, theme)}></div>
       </div>
     ))
