@@ -61,6 +61,13 @@ export default inject('game')(observer(function({game}) {
 .game-content tr.bottom td.cell.right {
   border-bottom: 0;
 }
+
+.loading-frame {
+  min-height: ${game.contentHeight - 72}px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
     `}
   </style>)
 }))

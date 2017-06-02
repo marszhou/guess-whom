@@ -9,6 +9,7 @@ import PlayerStatus from 'components/PlayerStatus'
 import GameStore from 'src/stores/Game'
 
 import Page from 'src/stores/Page'
+import CalculatedCss from 'components/CalculatedCss'
 
 @observer
 class Player extends React.Component {
@@ -48,6 +49,7 @@ class Player extends React.Component {
     return (
       <Provider game={game}>
         <div>
+          <CalculatedCss/>
           {content}
         </div>
       </Provider>
