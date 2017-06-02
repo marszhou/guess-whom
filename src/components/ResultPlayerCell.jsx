@@ -33,7 +33,7 @@ class ResultPlayerCell extends React.Component {
       return null
     }
     return (
-      <guess className={game.showResult ? (this.myGuessCorrect ? 'correct︎':'') : ''}>
+      <guess className={'primary-text-color' + (game.showResult ? (this.myGuessCorrect ? 'correct︎':'') : '')}>
         {this.myGuess ? this.myGuess.name : '(未选择)'}
         {game.showResult ? (this.myGuessCorrect ? '✔︎':'') : ''}
       </guess>

@@ -46,7 +46,7 @@ class GamePage extends React.Component {
   height: ${this.contentHeight}px;
   padding: 0;
   margin: 0;
-  border: 1px solid black;
+  border: 1px solid #EEE;
   border-spacing: 0px;
   border-collapse: separate;
 }
@@ -79,11 +79,11 @@ class GamePage extends React.Component {
   text-align: center;
 }
 .game-content .content {
-  border: 1px solid black;
+  border: 1px solid #EEE;
 }
 .game-content tr.top .cell,
 .game-content tr.bottom .cell {
-  border-right: 1px solid black;
+  border-right: 1px solid #EEE;
 }
 .game-content tr.top .cell:last-of-type,
 .game-content tr.bottom .cell:last-of-type {
@@ -91,7 +91,7 @@ class GamePage extends React.Component {
 }
 .game-content td.cell.left,
 .game-content td.cell.right {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #EEE;
 }
 .game-content tr.bottom td.cell.left,
 .game-content tr.bottom td.cell.right {
@@ -160,7 +160,7 @@ class GamePage extends React.Component {
   renderTable(size, PlayerCell, ContentCell) {
     this._cellLoopIndex = 0
     return (
-      <table className='game-content'><tbody>
+      <table className='game-content' cellSpacing='0' cellPadding="0"><tbody>
         {
           _.range(size).map(row => {
             let classNames = {}

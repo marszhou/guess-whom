@@ -15,13 +15,18 @@ class GuessPlayerCell extends React.Component {
   }
   render() {
     let {player} = this.props
-    return (
-      <div className='player' style={{}}>
-        <name>{player.name}</name>
-        <desc>{player.status}</desc>
-        {this.isGuessed ? '✔︎' : ''}
+    return (<div className=''>
+      <div className='player light-primary-color' style={{}}>
+        <name className='text-primary-color accent-color'>
+          <span style={{'fontFamily': 'FontAwesome', display: 'none'}}>&#xf00c;</span>
+          {player.name}
+        </name>
+        <desc className='text-primary-color default-primary-color'>
+          {player.status}
+        </desc>
+        {this.isGuessed ? (<sign><i className="choosed fa fa-check"/></sign>) : ''}
       </div>
-    )
+    </div>)
   }
 }
 

@@ -55,15 +55,29 @@ body {
     -webkit-mask: url(/static/assets/svg/loading-bars.svg) no-repeat center/cover;
     mask: url(/static/assets/svg/loading-bars.svgg) no-repeat center/cover;
 }
+.player{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.player name, .player desc, .player guess, .player sign {
+  padding: 2px 8px;
+  /*border: 1px solid;*/
+  border-radius: 16px;
+  margin-top: 6px;
+  display: inline-block;
+  box-shadow: 1px 1px 2px #333;
+  font-size: 14px;
+}
 name {
-  display: block;
 }
 name:before {
   content: ' ';
   font-family: FontAwesome;
 }
 desc {
-  display: block;
   white-space: nowrap;
 }
 desc:before {
@@ -71,9 +85,34 @@ desc:before {
   font-family: FontAwesome;
 }
 guess {
-  display: block;
+  background: white;
+}
+guess.correct {
+  background: rgba(254, 234, 59, 0.7);
 }
 guess:before {
   content: " ";
   font-family: FontAwesome;
 }
+guess.correct:after {
+  content: '';
+  font-family: FontAwesome;
+  font-size: 150%;
+  color: red;
+}
+sign {
+  background: rgba(254, 234, 59, 0.7);
+  color: red;
+  font-size: 28px!important;
+  border-radius: 30px!important;
+}
+
+/* theme */
+.theme-purple .dark-primary-color    { background: #7B1FA2; }
+.theme-purple .default-primary-color { background: #9C27B0; }
+.theme-purple .light-primary-color   { background: #E1BEE7; }
+.theme-purple .text-primary-color    { color: #FFFFFF; }
+.theme-purple .accent-color          { background: #448AFF; }
+.theme-purple .primary-text-color    { color: #212121; }
+.theme-purple .secondary-text-color  { color: #757575; }
+.theme-purple .divider-color         { border-color: #BDBDBD; }
