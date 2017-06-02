@@ -1,9 +1,7 @@
 import React from 'react'
 import GameStore from 'src/stores/Game'
 import {observer, Provider} from 'mobx-react'
-import {observable, action}  from 'mobx'
 import Page from 'src/stores/Page'
-import $ from 'jquery'
 import _ from 'lodash'
 import cx from 'classnames'
 
@@ -17,24 +15,10 @@ import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recha
 @observer
 class GamePage extends React.Component {
   _cellLoopIndex = 0
-  @observable contentWidth = 0
-  @observable contentHeight = 0
 
   componentWillMount() {
     this.game = new GameStore('game')
     Page.pushTitle('我猜')
-
-    this.recalculateContentDimension()
-    $(window).on('resize', this.recalculateContentDimension)
-  }
-
-  componentWillUnmount() {
-    $(window).off('resize', this.recalculateContentDimension)
-  }
-  @action
-  recalculateContentDimension = () => {
-    this.contentWidth = window.document.documentElement.clientWidth - 30 * 2
-    this.contentHeight = window.document.documentElement.clientHeight - 85 - 44
   }
 
   renderCalculatedCss() {
@@ -42,8 +26,8 @@ class GamePage extends React.Component {
     return (<style>
       {`
 .game-content {
-  width: ${this.contentWidth}px;
-  height: ${this.contentHeight}px;
+  width: ${this.game.contentWidth}px;
+  height: ${this.game.contentHeight}px;
   padding: 0;
   margin: 0;
   border: 1px solid #EEE;
@@ -57,17 +41,17 @@ class GamePage extends React.Component {
 }
 .game-content td.cell {
   width: ${100/size}%;
-  height: ${this.contentHeight/size}px
+  height: ${this.game.contentHeight/size}px
 }
 .game-content td.cell div.player{
-  width: ${this.contentWidth/size}px;
-  height: ${this.contentHeight/size}px;
+  width: ${this.game.contentWidth/size}px;
+  height: ${this.game.contentHeight/size}px;
   padding-left: 3px;
   overflow: hidden;
 }
 .game-content td.content div.frame{
-  width: ${this.contentWidth/size*(size-2)}px;
-  height: ${this.contentHeight/size*(size-2)}px;
+  width: ${this.game.contentWidth/size*(size-2)}px;
+  height: ${this.game.contentHeight/size*(size-2)}px;
   overflow: auto;
   display: flex;
   justify-content: center;
@@ -200,8 +184,8 @@ class GamePage extends React.Component {
           {
             player ?
               (<PlayerCell
-                width={this.contentWidth / size}
-                height={this.contentHeight / size}
+                width={this.game.contentWidth / size}
+                height={this.game.contentHeight / size}
                 player={player}
               />) : '　'
           }
@@ -216,8 +200,8 @@ class GamePage extends React.Component {
           rowSpan={size - 2}
         >
           <ContentCell
-            width={this.contentWidth / size * (size - 2)}
-            height={this.contentHeight / size * (size - 2)}
+            width={this.game.contentWidth / size * (size - 2)}
+            height={this.game.contentHeight / size * (size - 2)}
           />
         </td>
       )
@@ -249,8 +233,8 @@ class GamePage extends React.Component {
     let scores = this.game.scores
     return (
       <BarChart
-        width={this.contentWidth}
-        height={this.contentHeight}
+        width={this.game.contentWidth}
+        height={this.game.contentHeight}
         data={scores}
         layout='vertical'
         >

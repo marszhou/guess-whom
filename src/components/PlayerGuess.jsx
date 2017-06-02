@@ -84,10 +84,11 @@ class PlayerGuess extends React.Component {
   renderPending() {
     return <div className='loading'/>
   }
+
   render() {
     let {candidate} = this.props.game
     return (
-      <div>
+      <div className={candidate ? '' : 'loading-frame'}>
         {
           candidate ? this.renderChoose() : this.renderPending()
         }

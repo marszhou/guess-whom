@@ -6,6 +6,7 @@ import {SOCKET_EVENTS} from 'src/consts'
 import request from 'utils/Request'
 import {Debounce} from 'lodash-decorators'
 import _ from 'lodash'
+import $ from 'jquery'
 
 class Game {
   constructor(role='player') {
@@ -18,13 +19,24 @@ class Game {
       candidate: null,
       candidates: [],
       result: null,
-      showResult: false
+      showResult: false,
+      contentWidth: 0,
+      contentHeight: 0
     })
     if (role === 'player') {
       this.player = new PlayerStore(socket)
     }
     this.init()
     this.initSocket(socket)
+
+    $(window).on('resize', this.recalculateContentDimension)
+    this.recalculateContentDimension()
+  }
+
+  @action
+  recalculateContentDimension = () => {
+    this.contentWidth = window.document.documentElement.clientWidth - 30 * 2
+    this.contentHeight = window.document.documentElement.clientHeight - 85 - 44
   }
 
   init() {
