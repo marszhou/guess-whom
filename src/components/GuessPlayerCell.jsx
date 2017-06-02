@@ -15,7 +15,7 @@ class GuessPlayerCell extends React.Component {
   }
   render() {
     let {player} = this.props
-    return (<div className=''>
+    return (<div className='theme-default'>
       <div className='player light-primary-color' style={{}}>
         <name className='text-primary-color accent-color'>
           <span style={{'fontFamily': 'FontAwesome', display: 'none'}}>&#xf00c;</span>
