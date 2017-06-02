@@ -9,7 +9,7 @@ import GuessPlayerCell from 'components/GuessPlayerCell'
 import GuessContentCell from 'components/GuessContentCell'
 import ResultPlayerCell from 'components/ResultPlayerCell'
 import ResultContentCell from 'components/ResultContentCell'
-
+import CalculatedCss from 'components/CalculatedCss'
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts'
 
 @observer
@@ -19,70 +19,6 @@ class GamePage extends React.Component {
   componentWillMount() {
     this.game = new GameStore('game')
     Page.pushTitle('我猜')
-  }
-
-  renderCalculatedCss() {
-    let size = this.game.calculateGameLayoutSize()
-    return (<style>
-      {`
-.game-content {
-  width: ${this.game.contentWidth}px;
-  height: ${this.game.contentHeight}px;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #EEE;
-  border-spacing: 0px;
-  border-collapse: separate;
-}
-.game-content td{
-  margin: 0;
-  padding: 0;
-  bordre: 0;
-}
-.game-content td.cell {
-  width: ${100/size}%;
-  height: ${this.game.contentHeight/size}px
-}
-.game-content td.cell div.player{
-  width: ${this.game.contentWidth/size}px;
-  height: ${this.game.contentHeight/size}px;
-  padding-left: 3px;
-  overflow: hidden;
-}
-.game-content td.content div.frame{
-  width: ${this.game.contentWidth/size*(size-2)}px;
-  height: ${this.game.contentHeight/size*(size-2)}px;
-  overflow: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  flex-direction: column;
-}
-.game-content td.content div.frame div.main{
-  text-align: center;
-}
-.game-content .content {
-  border: 1px solid #EEE;
-}
-.game-content tr.top .cell,
-.game-content tr.bottom .cell {
-  border-right: 1px solid #EEE;
-}
-.game-content tr.top .cell:last-of-type,
-.game-content tr.bottom .cell:last-of-type {
-  border-right: 0;
-}
-.game-content td.cell.left,
-.game-content td.cell.right {
-  border-bottom: 1px solid #EEE;
-}
-.game-content tr.bottom td.cell.left,
-.game-content tr.bottom td.cell.right {
-  border-bottom: 0;
-}
-      `}
-    </style>)
   }
 
   renderBool(bool) {
@@ -213,7 +149,6 @@ class GamePage extends React.Component {
     let size = this.game.calculateGameLayoutSize()
     return (
       <div>
-        {this.renderCalculatedCss()}
         {this.renderTable(size, GuessPlayerCell, GuessContentCell)}
       </div>
     )
@@ -223,7 +158,6 @@ class GamePage extends React.Component {
     let size = this.game.calculateGameLayoutSize()
     return (
       <div>
-        {this.renderCalculatedCss()}
         {this.renderTable(size, ResultPlayerCell, ResultContentCell)}
       </div>
     )
@@ -262,6 +196,7 @@ class GamePage extends React.Component {
     return (
       <Provider game={this.game}>
         <div className='game'>
+          <CalculatedCss/>
           {content}
         </div>
       </Provider>
