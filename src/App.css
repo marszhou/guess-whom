@@ -59,18 +59,21 @@ name {
   display: block;
 }
 name:before {
-  content: '👤 ';
+  content: ' ';
+  font-family: FontAwesome;
 }
 desc {
   display: block;
   white-space: nowrap;
 }
 desc:before {
-  content: "❤️ ";
+  content: " ";
+  font-family: FontAwesome;
 }
 guess {
   display: block;
 }
 guess:before {
-  content: "🙊 ";
+  content: " ";
+  font-family: FontAwesome;
 }
