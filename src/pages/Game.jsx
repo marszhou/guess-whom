@@ -165,12 +165,16 @@ class GamePage extends React.Component {
 
   renderEnd() {
     let scores = this.game.scores
+    // let scores = [
+    //   {name: '周晓阳', score: 100}
+    // ]
     return (
       <BarChart
         width={this.game.contentWidth}
         height={this.game.contentHeight}
         data={scores}
         layout='vertical'
+        margin={{right: 20, left: 10}}
         >
         <Tooltip/>
         <Bar dataKey='score' fill='#8884d8'/>
