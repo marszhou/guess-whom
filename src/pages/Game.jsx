@@ -175,7 +175,7 @@ class GamePage extends React.Component {
         <Tooltip/>
         <Bar dataKey='score' fill='#8884d8'/>
         <XAxis type='number' allowDecimals={false}/>
-        <YAxis dataKey="name" type='category'/>
+        <YAxis dataKey="name" type='category' interval={0}/>
         <CartesianGrid strokeDasharray="3 3"/>
         <Legend />
       </BarChart>

@@ -89,6 +89,7 @@ app.get('/game/:playerId', function(req, res) {
 app.post('/game/init', function(req, res) {
   logger.info('Game Init')
   game.init()
+  broadcastGame()
   res.json({result: true})
 })
 
@@ -134,7 +135,7 @@ app.post('/player/:playerId', function(req, res) {
       logger.info('Current players count = ' + game.getPlayersCount())
     }
   }
-  broadcastUserList()
+  broadcastPublicGame()
   res.json({
     result: true
   })
@@ -151,7 +152,7 @@ app.post('/player/:playerId/confirm', function(req, res) {
   let {confirm} = req.body
   let playerId = req.params.playerId
   game.setPlayerIsConfirmed(playerId, confirm)
-  broadcastGame()
+  broadcastPublicGame()
   res.json({
     result: true
   })
@@ -159,7 +160,7 @@ app.post('/player/:playerId/confirm', function(req, res) {
 
 // set player answer
 app.post('/player/:playerId/answers', function(req, res) {
-  broadcastGame()
+  broadcastPublicGame()
   let playerId = req.params.playerId
   let answers = req.body.answers
   if (answers!== undefined) {

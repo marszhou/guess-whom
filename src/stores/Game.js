@@ -206,7 +206,7 @@ class Game {
       this.result = game.result
       if (this.player) {
         console.log(game.player)
-        // this.player.setData(game.player)
+        this.player.setData(game.player)
       }
     }))
   }
