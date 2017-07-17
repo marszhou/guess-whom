@@ -25,7 +25,7 @@ class Player extends React.Component {
 
     switch (stage) {
       case -1:
-        content = (<h1 style={{textAlign: 'center'}}><img src='/static/assets/9f5dd385ly1fdllaakzx4g206j06jx6p.gif' alt='wait'/></h1>)
+        content = (<h1 style={{textAlign: 'center'}}><img src='/static/assets/90eef340gw1f3in3k0fzdg20780aax6p.gif' alt='wait'/></h1>)
         break
       case 0:
         content = (<PlayerInfo/>)

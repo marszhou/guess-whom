@@ -57,7 +57,7 @@ class ResultContentCell extends React.Component {
         height={this.props.height - (45 * (result.answers.length + 1))}
         layout='vertical'
         data={statics}
-        margin={{right: 10, left: 10}}
+        margin={{right: 10, left: 25}}
         >
         <Bar dataKey='score' fill='#8884d8'/>
         <XAxis type='number' hide={true}/>
